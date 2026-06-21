@@ -1,0 +1,24 @@
+{
+  "counters": {
+    "counterA": {
+      "id": "counterA",
+      "label": "Counter A",
+      "color": "blue",
+      "value": 0
+    },
+    "counterB": {
+      "id": "counterB",
+      "label": "Counter B",
+      "color": "amber",
+      "value": 0
+    },
+    "counterC": {
+      "id": "counterC",
+      "label": "Counter C",
+      "color": "emerald",
+      "value": 0
+    }
+  },
+  "lastUpdated": null,
+  "version": 1
+}
