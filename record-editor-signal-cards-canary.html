@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Record Editor - Signal Cards Canary</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .screen-shell {
+        min-height: 100vh;
+        padding: var(--spacing-container-padding, 24px);
+      }
+      .screen-header {
+        width: min(720px, 100%);
+        margin: 0 auto 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .screen-header h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 700;
+      }
+      .editor-form {
+        width: min(720px, 100%);
+        margin: 0 auto;
+        background: var(--color-surface-container-lowest, #ffffff);
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .field-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .field-group label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--color-on-surface-variant, #45464d);
+      }
+      .field-group input,
+      .field-group select,
+      .field-group textarea {
+        padding: 10px 12px;
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-DEFAULT, 0.125rem);
+        font-size: 14px;
+        background: var(--color-background, #fcf8fa);
+      }
+      .field-group textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+      .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 8px;
+      }
+      .editor-status {
+        font-size: 13px;
+        color: var(--color-error, #b3261e);
+        min-height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen-shell" data-setfarm-root="record-editor" data-testid="record-editor-screen">
+      <header class="screen-header">
+        <h1>Record Editor</h1>
+        <button type="button" class="btn btn-ghost" data-action-id="close-form" data-testid="close-form">Close form</button>
+      </header>
+
+      <form class="editor-form" data-testid="record-editor-form" novalidate>
+        <div class="field-group">
+          <label for="record-title">Title</label>
+          <input id="record-title" type="text" placeholder="e.g., Q3 Metric Anomaly" data-field-id="title" required />
+        </div>
+
+        <div class="field-group">
+          <label for="record-type">Type</label>
+          <select id="record-type" data-field-id="type">
+            <option value="anomaly">Anomaly</option>
+            <option value="performance">Performance</option>
+            <option value="infrastructure">Infrastructure</option>
+            <option value="security">Security</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="record-severity">Severity</label>
+          <input id="record-severity" type="number" placeholder="0" min="0" max="5" data-field-id="severity" />
+        </div>
+
+        <div class="field-group">
+          <label for="record-status">Status</label>
+          <select id="record-status" data-field-id="status">
+            <option value="open">Open</option>
+            <option value="acknowledged">Acknowledged</option>
+            <option value="resolved">Resolved</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="record-details">Details</label>
+          <textarea id="record-details" placeholder="Add contextual details about this record..." data-field-id="details"></textarea>
+        </div>
+
+        <div class="editor-status" data-testid="editor-status"></div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" data-action-id="ACT_CANCEL_EDIT" data-testid="cancel-edit">Cancel</button>
+          <button type="submit" class="btn btn-primary" data-action-id="ACT_SAVE_RECORD" data-testid="save-record">Record</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="assets/js/us-002/act_save_record.js" defer></script>
+    <script src="assets/js/us-002/act_cancel_edit.js" defer></script>
+  </body>
+</html>
