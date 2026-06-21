@@ -47,7 +47,7 @@
     return {
       title: titleInput ? titleInput.value.trim() : '',
       type: typeInput ? typeInput.value : 'anomaly',
-      severity: severityInput ? parseInt(severityInput.value, 10) || 0 : 0,
+      severity: severityInput ? Math.max(0, Math.min(5, parseInt(severityInput.value, 10) || 0)) : 0,
       details: detailsInput ? detailsInput.value.trim() : '',
       status: statusInput ? statusInput.value : 'open'
     };
@@ -75,7 +75,12 @@
       record = records.find(function (r) {
         return r.id === recordId;
       });
-      if (record) populateForm(record);
+      if (record) {
+        populateForm(record);
+      } else {
+        const statusEl = document.querySelector('[data-testid="editor-status"]');
+        if (statusEl) statusEl.textContent = 'Record not found.';
+      }
     }
 
     const form = document.querySelector('[data-testid="record-editor-form"]');

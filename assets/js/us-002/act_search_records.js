@@ -67,7 +67,8 @@
 
     if (records.length === 0) {
       if (empty) empty.style.display = 'block';
-      renderCount(0, 0);
+      const all = loadRecords();
+      renderCount(0, all.length);
       return;
     }
     if (empty) empty.style.display = 'none';
@@ -112,10 +113,13 @@
 
     if (query) {
       records = records.filter(function (r) {
+        const title = r.title ? String(r.title).toLowerCase() : '';
+        const details = r.details ? String(r.details).toLowerCase() : '';
+        const type = r.type ? String(r.type).toLowerCase() : '';
         return (
-          r.title.toLowerCase().indexOf(query) !== -1 ||
-          r.details.toLowerCase().indexOf(query) !== -1 ||
-          r.type.toLowerCase().indexOf(query) !== -1
+          title.indexOf(query) !== -1 ||
+          details.indexOf(query) !== -1 ||
+          type.indexOf(query) !== -1
         );
       });
     }
