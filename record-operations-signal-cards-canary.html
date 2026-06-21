@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Record Operations - Signal Cards Canary</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .screen-shell {
+        min-height: 100vh;
+        padding: var(--spacing-container-padding, 24px);
+      }
+      .screen-header {
+        width: min(960px, 100%);
+        margin: 0 auto 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .screen-header h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 700;
+      }
+      .screen-nav {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .screen-nav a {
+        text-decoration: none;
+        color: var(--color-on-surface-variant, #45464d);
+        font-weight: 600;
+      }
+      .screen-nav a[aria-current="page"] {
+        color: var(--color-primary, #000000);
+        text-decoration: underline;
+      }
+      .controls-bar {
+        width: min(960px, 100%);
+        margin: 0 auto 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+      .controls-bar input,
+      .controls-bar select {
+        padding: 10px 12px;
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-DEFAULT, 0.125rem);
+        font-size: 13px;
+        background: var(--color-surface-container-lowest, #ffffff);
+      }
+      .controls-bar input {
+        flex: 1 1 220px;
+        min-width: 180px;
+      }
+      .record-count {
+        margin-left: auto;
+        font-size: 13px;
+        color: var(--color-on-surface-variant, #45464d);
+      }
+      .record-list {
+        width: min(960px, 100%);
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .record-row {
+        background: var(--color-surface-container-lowest, #ffffff);
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+      }
+      .record-title {
+        margin: 0 0 4px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .record-meta {
+        font-size: 12px;
+        color: var(--color-on-surface-variant, #45464d);
+        text-transform: capitalize;
+      }
+      .empty-state {
+        width: min(960px, 100%);
+        margin: 0 auto;
+        padding: 40px;
+        text-align: center;
+        color: var(--color-on-surface-variant, #45464d);
+        border: 1px dashed var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+      }
+      .load-status {
+        width: min(960px, 100%);
+        margin: 12px auto 0;
+        font-size: 13px;
+        color: var(--color-on-surface-variant, #45464d);
+        min-height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen-shell" data-setfarm-root="record-operations" data-testid="record-operations-screen">
+      <header class="screen-header">
+        <h1>Record Operations</h1>
+        <nav class="screen-nav" aria-label="Section navigation">
+          <a href="record-operations-signal-cards-canary.html" aria-current="page" data-action-id="ACT_OPERATIONS">Operations</a>
+          <a href="index.html" data-action-id="ACT_INSIGHTS">Insights</a>
+          <a href="index.html">Technical Status</a>
+        </nav>
+      </header>
+
+      <section class="controls-bar">
+        <input
+          type="text"
+          placeholder="Search records..."
+          aria-label="Search records"
+          data-action-id="ACT_SEARCH_RECORDS"
+          data-testid="search-records-input"
+        />
+        <select data-filter-id="status" aria-label="Filter by status" data-testid="status-filter">
+          <option value="">All statuses</option>
+          <option value="open">Open</option>
+          <option value="acknowledged">Acknowledged</option>
+          <option value="resolved">Resolved</option>
+        </select>
+        <select data-filter-id="severity" aria-label="Filter by severity" data-testid="severity-filter">
+          <option value="">All severities</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button type="button" class="btn btn-ghost" data-action-id="clear-filters" data-testid="clear-filters">Clear Filters</button>
+        <button type="button" class="btn btn-primary" data-action-id="ACT_CREATE_RECORD" data-testid="create-record">Create Record</button>
+        <span class="record-count" data-testid="record-count"></span>
+      </section>
+
+      <section class="record-list" data-testid="record-list" aria-live="polite"></section>
+
+      <section class="empty-state" data-testid="record-empty-state" style="display: none;">
+        <p>No records match the current filters.</p>
+        <button type="button" class="btn btn-secondary" data-action-id="ACT_RETRY_LOAD" data-testid="retry-load">Retry</button>
+      </section>
+
+      <div class="load-status" data-testid="load-status"></div>
+    </div>
+
+    <script src="assets/js/us-002/act_search_records.js" defer></script>
+    <script src="assets/js/us-002/act_create_record.js" defer></script>
+    <script src="assets/js/us-002/act_select_record.js" defer></script>
+    <script src="assets/js/us-002/act_retry_load.js" defer></script>
+  </body>
+</html>
