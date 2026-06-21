@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Signal Cards Canary - Insights</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "on-secondary-fixed-variant": "#004395",
+                    "tertiary-container": "#2a1700",
+                    "surface-variant": "#e4e2e4",
+                    "error": "#ba1a1a",
+                    "on-surface-variant": "#45464d",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#dcd9db",
+                    "on-tertiary-container": "#b87500",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#fefcff",
+                    "on-primary-fixed": "#131b2e",
+                    "surface-tint": "#565e74",
+                    "on-surface": "#1b1b1d",
+                    "surface-container-highest": "#e4e2e4",
+                    "on-tertiary-fixed": "#2a1700",
+                    "secondary": "#0058be",
+                    "inverse-primary": "#bec6e0",
+                    "secondary-fixed": "#d8e2ff",
+                    "surface-container-low": "#f6f3f5",
+                    "primary-fixed-dim": "#bec6e0",
+                    "inverse-on-surface": "#f3f0f2",
+                    "primary": "#000000",
+                    "surface-container-high": "#eae7e9",
+                    "surface-bright": "#fcf8fa",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#303032",
+                    "on-error": "#ffffff",
+                    "primary-container": "#131b2e",
+                    "on-background": "#1b1b1d",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "surface-container": "#f0edef",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#000000",
+                    "outline-variant": "#c6c6cd",
+                    "on-primary-container": "#7c839b",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-primary": "#ffffff",
+                    "outline": "#76777d",
+                    "background": "#fcf8fa",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary-fixed": "#001a42",
+                    "surface": "#fcf8fa",
+                    "secondary-container": "#2170e4",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-gap-normal": "16px",
+                    "gutter": "12px",
+                    "container-padding": "24px",
+                    "cell-padding-v": "10px",
+                    "unit": "4px",
+                    "cell-padding-h": "12px",
+                    "stack-gap-dense": "8px"
+            },
+            "fontFamily": {
+                    "headline": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "Inter"
+                    ],
+                    "data-mono": [
+                            "JetBrains Mono"
+                    ],
+                    "display-sm": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "body-sm": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "headline": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "11px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "data-mono": [
+                            "13px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "display-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f8fafc; /* Slate 50 equivalent */
+            color: #0f172a; /* Slate 900 equivalent */
+        }
+        .metric-card-blue { border-top: 4px solid #3b82f6; }
+        .metric-card-amber { border-top: 4px solid #f59e0b; }
+        .metric-card-emerald { border-top: 4px solid #10b981; }
+        .data-grid-item {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0; /* Slate 200 */
+        }
+        .text-emerald-custom { color: #059669; }
+        .bg-emerald-custom-light { background-color: #d1fae5; }
+        
+        .chart-bar-blue { background-color: #3b82f6; width: 45%; }
+        .chart-bar-amber { background-color: #f59e0b; width: 30%; }
+        .chart-bar-emerald { background-color: #10b981; width: 25%; }
+    </style>
+</head>
+<body class="font-body-md h-screen flex overflow-hidden">
+<!-- Mobile Nav Anchor -->
+<nav class="md:hidden flex justify-between items-center w-full px-container-padding h-16 fixed bottom-0 z-50 bg-surface dark:bg-surface-dim border-t border-outline-variant">
+<div class="flex space-x-6 w-full justify-around">
+<a class="flex flex-col items-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined mb-1 text-xl" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-caps text-label-caps uppercase">Operations</span>
+</a>
+<a class="flex flex-col items-center text-secondary font-bold" href="#">
+<span class="material-symbols-outlined mb-1 text-xl" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-label-caps uppercase">Insights</span>
+</a>
+</div>
+</nav>
+<!-- SideNavBar (Web) -->
+<nav class="hidden md:flex flex-col fixed left-0 top-0 h-full w-60 py-stack-gap-normal z-40 bg-white border-r border-outline-variant dark:bg-surface-container-lowest dark:border-outline">
+<div class="px-container-padding mb-8">
+<h1 class="font-headline text-headline font-black text-primary dark:text-primary-fixed-dim">Signal Cards</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant">Canary v1.0</p>
+</div>
+<div class="px-gutter mb-6">
+<button class="w-full bg-primary text-on-primary py-2 px-4 rounded font-label-caps text-label-caps hover:bg-opacity-90 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined mr-2 text-[18px]">add</span>
+                Create Record
+            </button>
+</div>
+<div class="flex-1 px-gutter space-y-1">
+<a class="flex items-center px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined mr-3 text-xl" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-label-caps text-label-caps uppercase">Operations</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded text-secondary font-bold bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined mr-3 text-xl" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-label-caps uppercase">Insights</span>
+</a>
+</div>
+<div class="px-gutter mt-auto">
+<a class="flex items-center px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined mr-3 text-xl" data-icon="developer_board">developer_board</span>
+<span class="font-label-caps text-label-caps uppercase">Technical Status</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-60 h-full overflow-y-auto pb-20 md:pb-0">
+<!-- Header -->
+<header class="sticky top-0 z-30 bg-[#f8fafc] bg-opacity-90 backdrop-blur-sm px-container-padding py-stack-gap-normal flex justify-between items-center border-b border-outline-variant/30">
+<div>
+<h2 class="font-display-sm text-display-sm font-bold text-primary">System Insights</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Operational summary and state distribution.</p>
+</div>
+<div class="flex items-center space-x-3">
+<button class="p-2 border border-outline-variant rounded hover:bg-surface-container-high transition-colors flex items-center text-on-surface">
+<span class="material-symbols-outlined text-[20px]" data-icon="filter_list">filter_list</span>
+</button>
+<button class="px-4 py-2 border border-outline-variant rounded hover:bg-surface-container-high transition-colors font-label-caps text-label-caps text-on-surface uppercase tracking-wide">
+                    Export Summary
+                </button>
+</div>
+</header>
+<div class="p-container-padding max-w-[1200px] mx-auto space-y-6">
+<!-- Metrics Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Counter A -->
+<div class="data-grid-item metric-card-blue p-6 rounded">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Node Alpha Count</span>
+<span class="material-symbols-outlined text-[#3b82f6] text-[20px]">trip_origin</span>
+</div>
+<div class="font-data-mono text-display-lg text-primary mb-2">1,492</div>
+<div class="flex items-center text-emerald-custom font-body-sm text-body-sm bg-emerald-custom-light px-2 py-1 rounded w-fit">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_up</span>
+                        +12.5% this week
+                    </div>
+</div>
+<!-- Counter B -->
+<div class="data-grid-item metric-card-amber p-6 rounded">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Node Beta Events</span>
+<span class="material-symbols-outlined text-[#f59e0b] text-[20px]">trip_origin</span>
+</div>
+<div class="font-data-mono text-display-lg text-primary mb-2">843</div>
+<div class="flex items-center text-on-surface-variant font-body-sm text-body-sm bg-surface-container-high px-2 py-1 rounded w-fit">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_flat</span>
+                        -0.2% this week
+                    </div>
+</div>
+<!-- Counter C -->
+<div class="data-grid-item metric-card-emerald p-6 rounded">
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Node Gamma Logs</span>
+<span class="material-symbols-outlined text-[#10b981] text-[20px]">trip_origin</span>
+</div>
+<div class="font-data-mono text-display-lg text-primary mb-2">3,104</div>
+<div class="flex items-center text-emerald-custom font-body-sm text-body-sm bg-emerald-custom-light px-2 py-1 rounded w-fit">
+<span class="material-symbols-outlined text-[14px] mr-1">trending_up</span>
+                        +5.8% this week
+                    </div>
+</div>
+</section>
+<!-- Middle Section: Chart & Hints -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- State Distribution Chart -->
+<div class="data-grid-item rounded p-6 lg:col-span-2">
+<h3 class="font-headline text-headline text-primary mb-6">State Distribution</h3>
+<!-- Simple Bar Representation -->
+<div class="mb-4">
+<div class="flex justify-between text-body-sm font-body-sm text-on-surface-variant mb-2">
+<span>Balance Overview</span>
+<span class="font-data-mono">100% Total</span>
+</div>
+<div class="w-full h-8 flex rounded overflow-hidden">
+<div class="chart-bar-blue" title="Alpha - 45%"></div>
+<div class="chart-bar-amber" title="Beta - 30%"></div>
+<div class="chart-bar-emerald" title="Gamma - 25%"></div>
+</div>
+</div>
+<!-- Legend -->
+<div class="grid grid-cols-3 gap-4 mt-6 border-t border-outline-variant/30 pt-4">
+<div>
+<div class="flex items-center text-label-caps font-label-caps uppercase mb-1">
+<div class="w-3 h-3 rounded-full bg-[#3b82f6] mr-2"></div>
+                                Alpha State
+                            </div>
+<div class="font-data-mono text-body-md text-primary">45.0%</div>
+</div>
+<div>
+<div class="flex items-center text-label-caps font-label-caps uppercase mb-1">
+<div class="w-3 h-3 rounded-full bg-[#f59e0b] mr-2"></div>
+                                Beta State
+                            </div>
+<div class="font-data-mono text-body-md text-primary">30.0%</div>
+</div>
+<div>
+<div class="flex items-center text-label-caps font-label-caps uppercase mb-1">
+<div class="w-3 h-3 rounded-full bg-[#10b981] mr-2"></div>
+                                Gamma State
+                            </div>
+<div class="font-data-mono text-body-md text-primary">25.0%</div>
+</div>
+</div>
+</div>
+<!-- Actionable Hints -->
+<div class="data-grid-item rounded p-6">
+<h3 class="font-headline text-headline text-primary mb-4">Follow-up Hints</h3>
+<ul class="space-y-4">
+<li class="p-3 border border-outline-variant/50 rounded bg-surface-bright flex items-start">
+<span class="material-symbols-outlined text-error mr-3 text-[20px] mt-0.5">warning</span>
+<div>
+<h4 class="font-body-md font-semibold text-primary">Node Beta Threshold</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Events are nearing the 900 operational limit. Consider a cycle reset.</p>
+</div>
+</li>
+<li class="p-3 border border-outline-variant/50 rounded bg-surface-bright flex items-start">
+<span class="material-symbols-outlined text-[#3b82f6] mr-3 text-[20px] mt-0.5">info</span>
+<div>
+<h4 class="font-body-md font-semibold text-primary">Alpha Growth</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Rapid accumulation noted in the last 48 hours. Monitor closely.</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<!-- Bottom Section: Activity Feed -->
+<section class="data-grid-item rounded p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-headline text-primary">Recent Activity Feed</h3>
+<button class="font-label-caps text-label-caps uppercase text-secondary hover:underline">View All Logs</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high">
+<th class="py-cell-padding-v px-cell-padding-h font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-outline-variant/50">Timestamp</th>
+<th class="py-cell-padding-v px-cell-padding-h font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-outline-variant/50">Event Type</th>
+<th class="py-cell-padding-v px-cell-padding-h font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-outline-variant/50">Target</th>
+<th class="py-cell-padding-v px-cell-padding-h font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider border-b border-outline-variant/50">Operator</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono text-on-surface divide-y divide-outline-variant/30">
+<!-- Populated State (commented out to show empty state as requested, or mixed) 
+                            <tr class="hover:bg-surface-container-lowest transition-colors">
+                                <td class="py-cell-padding-v px-cell-padding-h text-on-surface-variant">2023-10-27 14:32:01</td>
+                                <td class="py-cell-padding-v px-cell-padding-h">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold bg-[#dbeafe] text-[#1e40af]">ADDITION</span>
+                                </td>
+                                <td class="py-cell-padding-v px-cell-padding-h">Node Alpha</td>
+                                <td class="py-cell-padding-v px-cell-padding-h">SYS_AUTO</td>
+                            </tr>
+                            -->
+</tbody>
+</table>
+</div>
+<!-- Empty State for Activity Feed -->
+<div class="py-12 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-outline-variant text-[48px] mb-4">history_toggle_off</span>
+<h4 class="font-headline text-headline text-primary mb-2">No Recent Activity</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">There are currently no additions or resets logged for this operational window. Check back later or adjust your filters.</p>
+</div>
+</section>
+</div>
+</main>
+</body></html>

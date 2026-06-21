@@ -1,0 +1,1189 @@
+{
+  "generatedAt": "2026-06-21T13:07:11.842Z",
+  "screenCount": 3,
+  "screens": {
+    "5eab4b7f2b76471e8e01fd1b9e05e04b": {
+      "screenId": "5eab4b7f2b76471e8e01fd1b9e05e04b",
+      "materialSymbolsRequired": true,
+      "sections": [
+        {
+          "tag": "header",
+          "layout": "flex-row",
+          "classes": [
+            "flex",
+            "justify-between",
+            "items-center",
+            "w-full",
+            "px-container-padding",
+            "h-16",
+            "fixed",
+            "top-0",
+            "z-50",
+            "bg-surface"
+          ],
+          "childCount": 4
+        },
+        {
+          "tag": "nav",
+          "layout": "flex-col",
+          "classes": [
+            "fixed",
+            "left-0",
+            "top-16",
+            "h-[calc(100vh-64px)]",
+            "w-60",
+            "flex",
+            "flex-col",
+            "py-stack-gap-normal",
+            "z-40",
+            "bg-white"
+          ],
+          "childCount": 5
+        },
+        {
+          "tag": "main",
+          "layout": "flex-col",
+          "classes": [
+            "ml-60",
+            "mt-16",
+            "p-container-padding",
+            "flex-1",
+            "flex",
+            "flex-col",
+            "overflow-hidden",
+            "bg-[#f8fafc]"
+          ],
+          "childCount": 38
+        }
+      ],
+      "buttons": [
+        {
+          "kind": "button",
+          "label": "sensors",
+          "classes": [
+            "p-2",
+            "text-on-surface-variant",
+            "hover:bg-surface-container-high",
+            "transition-colors",
+            "rounded-full",
+            "flex",
+            "items-center",
+            "justify-center"
+          ],
+          "icon": "sensors",
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "settings",
+          "classes": [
+            "p-2",
+            "text-on-surface-variant",
+            "hover:bg-surface-container-high",
+            "transition-colors",
+            "rounded-full",
+            "flex",
+            "items-center",
+            "justify-center"
+          ],
+          "icon": "settings",
+          "action": "navigate",
+          "expectedBehavior": "navigate:/settings",
+          "expectedRoute": "/settings",
+          "routeInferred": true
+        },
+        {
+          "kind": "button",
+          "label": "Create Record",
+          "classes": [
+            "bg-primary",
+            "text-on-primary",
+            "px-4",
+            "py-2",
+            "rounded",
+            "font-body-sm",
+            "text-body-sm",
+            "font-semibold",
+            "hover:bg-on-surface",
+            "transition-colors"
+          ],
+          "icon": null,
+          "action": "create",
+          "expectedBehavior": "open create flow or add a new item/state"
+        },
+        {
+          "kind": "button",
+          "label": "Filter Options",
+          "classes": [
+            "text-on-surface-variant",
+            "hover:text-primary",
+            "transition-colors",
+            "flex",
+            "items-center"
+          ],
+          "icon": "filter_list",
+          "action": "search",
+          "expectedBehavior": "filter/search visible results from input/query"
+        },
+        {
+          "kind": "button",
+          "label": "Clear Filters",
+          "classes": [
+            "mt-4",
+            "px-4",
+            "py-2",
+            "border",
+            "border-outline-variant",
+            "rounded",
+            "text-body-sm",
+            "hover:bg-surface-container",
+            "transition-colors"
+          ],
+          "icon": null,
+          "action": "search",
+          "expectedBehavior": "filter/search visible results from input/query"
+        },
+        {
+          "kind": "button",
+          "label": "open_in_new",
+          "classes": [
+            "text-on-surface-variant",
+            "hover:bg-surface-container",
+            "p-1",
+            "rounded",
+            "transition-colors"
+          ],
+          "icon": "open_in_new",
+          "action": "create",
+          "expectedBehavior": "open create flow or add a new item/state"
+        },
+        {
+          "kind": "button",
+          "label": "Retry",
+          "classes": [
+            "px-3",
+            "py-1",
+            "bg-white",
+            "border",
+            "border-outline-variant",
+            "rounded",
+            "font-label-caps",
+            "text-label-caps",
+            "hover:bg-surface-container",
+            "transition-colors"
+          ],
+          "icon": null,
+          "action": "retry",
+          "expectedBehavior": "retry the failed action and show loading/error feedback"
+        },
+        {
+          "kind": "button",
+          "label": "Acknowledge",
+          "classes": [
+            "px-4",
+            "py-2",
+            "border",
+            "border-outline-variant",
+            "rounded",
+            "font-body-sm",
+            "text-body-sm",
+            "font-medium",
+            "hover:bg-surface-container",
+            "transition-colors"
+          ],
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "Resolve",
+          "classes": [
+            "px-4",
+            "py-2",
+            "bg-primary",
+            "text-on-primary",
+            "rounded",
+            "font-body-sm",
+            "text-body-sm",
+            "font-semibold",
+            "hover:bg-on-surface",
+            "transition-colors"
+          ],
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "Signal Cards Canary v1.0",
+          "classes": [],
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        }
+      ],
+      "inputs": [
+        {
+          "kind": "input",
+          "type": "text",
+          "label": "Search records (ACT_SEARCH_RECORDS)",
+          "placeholder": "Search records...",
+          "name": "",
+          "classes": [
+            "w-full",
+            "pl-10",
+            "pr-4",
+            "py-2",
+            "border",
+            "border-outline-variant",
+            "rounded",
+            "bg-surface-container-lowest",
+            "text-body-sm",
+            "font-body-sm",
+            "focus:ring-2",
+            "focus:ring-secondary",
+            "focus:border-secondary",
+            "outline-none",
+            "transition-shadow"
+          ],
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        },
+        {
+          "kind": "input",
+          "type": "select",
+          "label": "select",
+          "placeholder": "",
+          "name": "",
+          "classes": [
+            "text-body-sm",
+            "font-body-sm",
+            "border",
+            "border-outline-variant",
+            "rounded",
+            "bg-white",
+            "px-2",
+            "py-1",
+            "outline-none",
+            "focus:ring-1",
+            "focus:ring-secondary"
+          ],
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        }
+      ],
+      "navLinks": [
+        {
+          "kind": "link",
+          "label": "Operations",
+          "href": "#",
+          "classes": [
+            "font-body-sm",
+            "text-body-sm"
+          ],
+          "icon": "account_balance_wallet",
+          "action": "navigate",
+          "expectedBehavior": "navigate:#"
+        },
+        {
+          "kind": "link",
+          "label": "Insights",
+          "href": "#",
+          "classes": [
+            "font-body-sm",
+            "text-body-sm"
+          ],
+          "icon": "analytics",
+          "action": "navigate",
+          "expectedBehavior": "navigate:#"
+        },
+        {
+          "kind": "link",
+          "label": "Technical Status",
+          "href": "#",
+          "classes": [
+            "font-body-sm",
+            "text-body-sm"
+          ],
+          "icon": "developer_board",
+          "action": "navigate",
+          "expectedBehavior": "navigate:#"
+        }
+      ],
+      "cards": [],
+      "icons": [
+        "search",
+        "sensors",
+        "settings",
+        "account_balance_wallet",
+        "analytics",
+        "developer_board",
+        "warning",
+        "verified",
+        "pending_actions",
+        "filter_list",
+        "search_off",
+        "open_in_new",
+        "sync_problem"
+      ],
+      "images": [],
+      "cssVars": {},
+      "colorPalette": {
+        "tertiary-fixed-dim": "#ffb95f",
+        "on-secondary-fixed-variant": "#004395",
+        "tertiary-container": "#2a1700",
+        "surface-variant": "#e4e2e4",
+        "error": "#ba1a1a",
+        "on-surface-variant": "#45464d",
+        "surface-container-lowest": "#ffffff",
+        "surface-dim": "#dcd9db",
+        "on-tertiary-container": "#b87500",
+        "on-primary-fixed-variant": "#3f465c",
+        "on-tertiary": "#ffffff",
+        "on-secondary-container": "#fefcff",
+        "on-primary-fixed": "#131b2e",
+        "surface-tint": "#565e74",
+        "on-surface": "#1b1b1d",
+        "surface-container-highest": "#e4e2e4",
+        "on-tertiary-fixed": "#2a1700",
+        "secondary": "#0058be",
+        "inverse-primary": "#bec6e0",
+        "secondary-fixed": "#d8e2ff",
+        "surface-container-low": "#f6f3f5",
+        "primary-fixed-dim": "#bec6e0",
+        "inverse-on-surface": "#f3f0f2",
+        "primary": "#000000",
+        "surface-container-high": "#eae7e9",
+        "surface-bright": "#fcf8fa",
+        "error-container": "#ffdad6",
+        "inverse-surface": "#303032",
+        "on-error": "#ffffff",
+        "primary-container": "#131b2e",
+        "on-background": "#1b1b1d",
+        "secondary-fixed-dim": "#adc6ff",
+        "surface-container": "#f0edef",
+        "on-error-container": "#93000a",
+        "tertiary": "#000000",
+        "outline-variant": "#c6c6cd",
+        "on-primary-container": "#7c839b",
+        "tertiary-fixed": "#ffddb8",
+        "on-primary": "#ffffff",
+        "outline": "#76777d",
+        "background": "#fcf8fa",
+        "primary-fixed": "#dae2fd",
+        "on-secondary-fixed": "#001a42",
+        "surface": "#fcf8fa",
+        "secondary-container": "#2170e4",
+        "on-tertiary-fixed-variant": "#653e00",
+        "on-secondary": "#ffffff"
+      },
+      "fonts": [
+        "Material Symbols Outlined",
+        "Inter",
+        "JetBrains Mono"
+      ],
+      "layoutHints": {
+        "gridCols": 3,
+        "flexDirection": "col",
+        "gap": "4"
+      },
+      "behaviorContract": [
+        {
+          "kind": "link",
+          "label": "Operations",
+          "icon": "account_balance_wallet",
+          "route": "#",
+          "expectedBehavior": "navigate:#"
+        },
+        {
+          "kind": "link",
+          "label": "Insights",
+          "icon": "analytics",
+          "route": "#",
+          "expectedBehavior": "navigate:#"
+        },
+        {
+          "kind": "link",
+          "label": "Technical Status",
+          "icon": "developer_board",
+          "route": "#",
+          "expectedBehavior": "navigate:#"
+        },
+        {
+          "kind": "button",
+          "label": "sensors",
+          "icon": "sensors",
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "settings",
+          "icon": "settings",
+          "action": "navigate",
+          "route": "/settings",
+          "expectedBehavior": "navigate:/settings"
+        },
+        {
+          "kind": "button",
+          "label": "Create Record",
+          "icon": null,
+          "action": "create",
+          "expectedBehavior": "open create flow or add a new item/state"
+        },
+        {
+          "kind": "button",
+          "label": "Filter Options",
+          "icon": "filter_list",
+          "action": "search",
+          "expectedBehavior": "filter/search visible results from input/query"
+        },
+        {
+          "kind": "button",
+          "label": "Clear Filters",
+          "icon": null,
+          "action": "search",
+          "expectedBehavior": "filter/search visible results from input/query"
+        },
+        {
+          "kind": "button",
+          "label": "open_in_new",
+          "icon": "open_in_new",
+          "action": "create",
+          "expectedBehavior": "open create flow or add a new item/state"
+        },
+        {
+          "kind": "button",
+          "label": "Retry",
+          "icon": null,
+          "action": "retry",
+          "expectedBehavior": "retry the failed action and show loading/error feedback"
+        },
+        {
+          "kind": "button",
+          "label": "Acknowledge",
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "Resolve",
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "Signal Cards Canary v1.0",
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "input",
+          "label": "Search records (ACT_SEARCH_RECORDS)",
+          "type": "text",
+          "placeholder": "Search records...",
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        },
+        {
+          "kind": "input",
+          "label": "select",
+          "type": "select",
+          "placeholder": "",
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        }
+      ],
+      "tabBar": [
+        {
+          "kind": "button",
+          "label": "Signal Cards Canary v1.0",
+          "icon": null,
+          "active": true
+        },
+        {
+          "kind": "link",
+          "label": "Operations",
+          "icon": "account_balance_wallet",
+          "route": "#",
+          "active": false
+        },
+        {
+          "kind": "link",
+          "label": "Insights",
+          "icon": "analytics",
+          "route": "#",
+          "active": false
+        },
+        {
+          "kind": "link",
+          "label": "Technical Status",
+          "icon": "developer_board",
+          "route": "#",
+          "active": false
+        }
+      ],
+      "title": "Record Operations - Signal Cards Canary"
+    },
+    "df1dea318af0422288bf56b4bdbc8489": {
+      "screenId": "df1dea318af0422288bf56b4bdbc8489",
+      "materialSymbolsRequired": true,
+      "sections": [
+        {
+          "tag": "nav",
+          "layout": "flex-row",
+          "classes": [
+            "md:hidden",
+            "flex",
+            "justify-between",
+            "items-center",
+            "w-full",
+            "px-container-padding",
+            "h-16",
+            "fixed",
+            "bottom-0",
+            "z-50"
+          ],
+          "childCount": 1
+        },
+        {
+          "tag": "nav",
+          "layout": "flex-col",
+          "classes": [
+            "hidden",
+            "md:flex",
+            "flex-col",
+            "fixed",
+            "left-0",
+            "top-0",
+            "h-full",
+            "w-60",
+            "py-stack-gap-normal",
+            "z-40"
+          ],
+          "childCount": 4
+        },
+        {
+          "tag": "main",
+          "layout": "flex-row",
+          "classes": [
+            "flex-1",
+            "md:ml-60",
+            "h-full",
+            "overflow-y-auto",
+            "pb-20",
+            "md:pb-0"
+          ],
+          "childCount": 48
+        }
+      ],
+      "buttons": [
+        {
+          "kind": "button",
+          "label": "Create Record",
+          "classes": [
+            "w-full",
+            "bg-primary",
+            "text-on-primary",
+            "py-2",
+            "px-4",
+            "rounded",
+            "font-label-caps",
+            "text-label-caps",
+            "hover:bg-opacity-90",
+            "transition-opacity",
+            "flex",
+            "items-center",
+            "justify-center"
+          ],
+          "icon": "add",
+          "action": "create",
+          "expectedBehavior": "open create flow or add a new item/state"
+        },
+        {
+          "kind": "button",
+          "label": "filter_list",
+          "classes": [
+            "p-2",
+            "border",
+            "border-outline-variant",
+            "rounded",
+            "hover:bg-surface-container-high",
+            "transition-colors",
+            "flex",
+            "items-center",
+            "text-on-surface"
+          ],
+          "icon": "filter_list",
+          "action": "search",
+          "expectedBehavior": "filter/search visible results from input/query"
+        },
+        {
+          "kind": "button",
+          "label": "Export Summary",
+          "classes": [
+            "px-4",
+            "py-2",
+            "border",
+            "border-outline-variant",
+            "rounded",
+            "hover:bg-surface-container-high",
+            "transition-colors",
+            "font-label-caps",
+            "text-label-caps",
+            "text-on-surface",
+            "uppercase",
+            "tracking-wide"
+          ],
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "View All Logs",
+          "classes": [
+            "font-label-caps",
+            "text-label-caps",
+            "uppercase",
+            "text-secondary",
+            "hover:underline"
+          ],
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "Signal Cards Canary v1.0",
+          "classes": [],
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        }
+      ],
+      "inputs": [],
+      "navLinks": [
+        {
+          "kind": "link",
+          "label": "Operations",
+          "href": "#",
+          "classes": [
+            "font-label-caps",
+            "text-label-caps",
+            "uppercase"
+          ],
+          "icon": "account_balance_wallet",
+          "action": "navigate",
+          "expectedBehavior": "navigate:#"
+        },
+        {
+          "kind": "link",
+          "label": "Insights",
+          "href": "#",
+          "classes": [
+            "font-label-caps",
+            "text-label-caps",
+            "uppercase"
+          ],
+          "icon": "analytics",
+          "action": "navigate",
+          "expectedBehavior": "navigate:#"
+        },
+        {
+          "kind": "link",
+          "label": "Technical Status",
+          "href": "#",
+          "classes": [
+            "font-label-caps",
+            "text-label-caps",
+            "uppercase"
+          ],
+          "icon": "developer_board",
+          "action": "navigate",
+          "expectedBehavior": "navigate:#"
+        }
+      ],
+      "cards": [],
+      "icons": [
+        "account_balance_wallet",
+        "analytics",
+        "add",
+        "developer_board",
+        "filter_list",
+        "trip_origin",
+        "trending_up",
+        "trending_flat",
+        "warning",
+        "info",
+        "history_toggle_off"
+      ],
+      "images": [],
+      "cssVars": {},
+      "colorPalette": {
+        "tertiary-fixed-dim": "#ffb95f",
+        "on-secondary-fixed-variant": "#004395",
+        "tertiary-container": "#2a1700",
+        "surface-variant": "#e4e2e4",
+        "error": "#ba1a1a",
+        "on-surface-variant": "#45464d",
+        "surface-container-lowest": "#ffffff",
+        "surface-dim": "#dcd9db",
+        "on-tertiary-container": "#b87500",
+        "on-primary-fixed-variant": "#3f465c",
+        "on-tertiary": "#ffffff",
+        "on-secondary-container": "#fefcff",
+        "on-primary-fixed": "#131b2e",
+        "surface-tint": "#565e74",
+        "on-surface": "#1b1b1d",
+        "surface-container-highest": "#e4e2e4",
+        "on-tertiary-fixed": "#2a1700",
+        "secondary": "#0058be",
+        "inverse-primary": "#bec6e0",
+        "secondary-fixed": "#d8e2ff",
+        "surface-container-low": "#f6f3f5",
+        "primary-fixed-dim": "#bec6e0",
+        "inverse-on-surface": "#f3f0f2",
+        "primary": "#000000",
+        "surface-container-high": "#eae7e9",
+        "surface-bright": "#fcf8fa",
+        "error-container": "#ffdad6",
+        "inverse-surface": "#303032",
+        "on-error": "#ffffff",
+        "primary-container": "#131b2e",
+        "on-background": "#1b1b1d",
+        "secondary-fixed-dim": "#adc6ff",
+        "surface-container": "#f0edef",
+        "on-error-container": "#93000a",
+        "tertiary": "#000000",
+        "outline-variant": "#c6c6cd",
+        "on-primary-container": "#7c839b",
+        "tertiary-fixed": "#ffddb8",
+        "on-primary": "#ffffff",
+        "outline": "#76777d",
+        "background": "#fcf8fa",
+        "primary-fixed": "#dae2fd",
+        "on-secondary-fixed": "#001a42",
+        "surface": "#fcf8fa",
+        "secondary-container": "#2170e4",
+        "on-tertiary-fixed-variant": "#653e00",
+        "on-secondary": "#ffffff"
+      },
+      "fonts": [
+        "Material Symbols Outlined",
+        "Inter",
+        "JetBrains Mono"
+      ],
+      "layoutHints": {
+        "gridCols": 1,
+        "flexDirection": "col",
+        "gap": "6"
+      },
+      "behaviorContract": [
+        {
+          "kind": "link",
+          "label": "Operations",
+          "icon": "account_balance_wallet",
+          "route": "#",
+          "expectedBehavior": "navigate:#"
+        },
+        {
+          "kind": "link",
+          "label": "Insights",
+          "icon": "analytics",
+          "route": "#",
+          "expectedBehavior": "navigate:#"
+        },
+        {
+          "kind": "link",
+          "label": "Technical Status",
+          "icon": "developer_board",
+          "route": "#",
+          "expectedBehavior": "navigate:#"
+        },
+        {
+          "kind": "button",
+          "label": "Create Record",
+          "icon": "add",
+          "action": "create",
+          "expectedBehavior": "open create flow or add a new item/state"
+        },
+        {
+          "kind": "button",
+          "label": "filter_list",
+          "icon": "filter_list",
+          "action": "search",
+          "expectedBehavior": "filter/search visible results from input/query"
+        },
+        {
+          "kind": "button",
+          "label": "Export Summary",
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "View All Logs",
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        },
+        {
+          "kind": "button",
+          "label": "Signal Cards Canary v1.0",
+          "icon": null,
+          "action": "click-action",
+          "expectedBehavior": "produce visible DOM/state/URL feedback; never empty onClick"
+        }
+      ],
+      "tabBar": [
+        {
+          "kind": "link",
+          "label": "Operations",
+          "icon": "account_balance_wallet",
+          "route": "#",
+          "active": false
+        },
+        {
+          "kind": "link",
+          "label": "Insights",
+          "icon": "analytics",
+          "route": "#",
+          "active": false
+        },
+        {
+          "kind": "button",
+          "label": "Signal Cards Canary v1.0",
+          "icon": null,
+          "active": true
+        },
+        {
+          "kind": "button",
+          "label": "Create Record",
+          "icon": "add",
+          "active": true
+        },
+        {
+          "kind": "link",
+          "label": "Operations",
+          "icon": "account_balance_wallet",
+          "route": "#",
+          "active": false
+        },
+        {
+          "kind": "link",
+          "label": "Insights",
+          "icon": "analytics",
+          "route": "#",
+          "active": false
+        },
+        {
+          "kind": "link",
+          "label": "Technical Status",
+          "icon": "developer_board",
+          "route": "#",
+          "active": false
+        }
+      ],
+      "title": "Insights - Signal Cards Canary"
+    },
+    "e018f53372464c4e8c38e1bb3fb484bf": {
+      "screenId": "e018f53372464c4e8c38e1bb3fb484bf",
+      "materialSymbolsRequired": true,
+      "sections": [
+        {
+          "tag": "main",
+          "layout": "block",
+          "classes": [
+            "w-full",
+            "max-w-2xl"
+          ],
+          "childCount": 14
+        }
+      ],
+      "buttons": [
+        {
+          "kind": "button",
+          "label": "Close form",
+          "classes": [
+            "text-on-surface-variant",
+            "hover:text-on-surface",
+            "transition-colors"
+          ],
+          "icon": "close",
+          "action": "dismiss",
+          "expectedBehavior": "close dialog/panel or return to previous state"
+        },
+        {
+          "kind": "button",
+          "label": "Cancel",
+          "classes": [
+            "px-stack-gap-normal",
+            "py-cell-padding-v",
+            "font-label-caps",
+            "text-label-caps",
+            "text-on-surface-variant",
+            "bg-transparent",
+            "border",
+            "border-outline-variant",
+            "rounded",
+            "hover:bg-surface-container-highest",
+            "transition-colors",
+            "focus:outline-none",
+            "focus:ring-2",
+            "focus:ring-secondary",
+            "focus:ring-offset-1"
+          ],
+          "icon": null,
+          "action": "dismiss",
+          "expectedBehavior": "close dialog/panel or return to previous state"
+        },
+        {
+          "kind": "button",
+          "label": "Record",
+          "classes": [
+            "px-stack-gap-normal",
+            "py-cell-padding-v",
+            "font-label-caps",
+            "text-label-caps",
+            "text-on-primary",
+            "bg-primary",
+            "border",
+            "border-transparent",
+            "rounded",
+            "hover:bg-surface-tint",
+            "transition-colors",
+            "focus:outline-none",
+            "focus:ring-2",
+            "focus:ring-secondary",
+            "focus:ring-offset-1",
+            "flex",
+            "items-center",
+            "gap-1",
+            "shadow-sm"
+          ],
+          "icon": "save",
+          "action": "form-submit",
+          "expectedBehavior": "validate inputs and submit/apply changes"
+        }
+      ],
+      "inputs": [
+        {
+          "kind": "input",
+          "type": "text",
+          "label": "e.g., Q3 Metric Anomaly",
+          "placeholder": "e.g., Q3 Metric Anomaly",
+          "name": "recordTitle",
+          "classes": [
+            "w-full",
+            "bg-surface-container-lowest",
+            "border-error",
+            "text-on-surface",
+            "font-body-md",
+            "rounded",
+            "focus:ring-2",
+            "focus:ring-error",
+            "focus:border-error",
+            "block",
+            "px-cell-padding-h",
+            "py-cell-padding-v"
+          ],
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        },
+        {
+          "kind": "input",
+          "type": "select",
+          "label": "counterType",
+          "placeholder": "",
+          "name": "counterType",
+          "classes": [
+            "w-full",
+            "bg-surface-container-lowest",
+            "border-outline-variant",
+            "text-on-surface",
+            "font-body-md",
+            "rounded",
+            "focus:ring-2",
+            "focus:ring-secondary",
+            "focus:border-secondary",
+            "block",
+            "px-cell-padding-h",
+            "py-cell-padding-v",
+            "appearance-none"
+          ],
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        },
+        {
+          "kind": "input",
+          "type": "number",
+          "label": "0",
+          "placeholder": "0",
+          "name": "initialValue",
+          "classes": [
+            "w-full",
+            "bg-surface-container-lowest",
+            "border-outline-variant",
+            "text-on-surface",
+            "font-data-mono",
+            "text-data-mono",
+            "rounded",
+            "focus:ring-2",
+            "focus:ring-secondary",
+            "focus:border-secondary",
+            "block",
+            "px-cell-padding-h",
+            "py-cell-padding-v"
+          ],
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        },
+        {
+          "kind": "input",
+          "type": "textarea",
+          "label": "Add contextual details about this record...",
+          "placeholder": "Add contextual details about this record...",
+          "name": "description",
+          "classes": [
+            "w-full",
+            "bg-surface-container-lowest",
+            "border-outline-variant",
+            "text-on-surface",
+            "font-body-md",
+            "rounded",
+            "focus:ring-2",
+            "focus:ring-secondary",
+            "focus:border-secondary",
+            "block",
+            "px-cell-padding-h",
+            "py-cell-padding-v",
+            "resize-y"
+          ],
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        }
+      ],
+      "navLinks": [],
+      "cards": [],
+      "icons": [
+        "info",
+        "close",
+        "error",
+        "expand_more",
+        "save"
+      ],
+      "images": [],
+      "cssVars": {},
+      "colorPalette": {
+        "tertiary-fixed-dim": "#ffb95f",
+        "on-secondary-fixed-variant": "#004395",
+        "tertiary-container": "#2a1700",
+        "surface-variant": "#e4e2e4",
+        "error": "#ba1a1a",
+        "on-surface-variant": "#45464d",
+        "surface-container-lowest": "#ffffff",
+        "surface-dim": "#dcd9db",
+        "on-tertiary-container": "#b87500",
+        "on-primary-fixed-variant": "#3f465c",
+        "on-tertiary": "#ffffff",
+        "on-secondary-container": "#fefcff",
+        "on-primary-fixed": "#131b2e",
+        "surface-tint": "#565e74",
+        "on-surface": "#1b1b1d",
+        "surface-container-highest": "#e4e2e4",
+        "on-tertiary-fixed": "#2a1700",
+        "secondary": "#0058be",
+        "inverse-primary": "#bec6e0",
+        "secondary-fixed": "#d8e2ff",
+        "surface-container-low": "#f6f3f5",
+        "primary-fixed-dim": "#bec6e0",
+        "inverse-on-surface": "#f3f0f2",
+        "primary": "#000000",
+        "surface-container-high": "#eae7e9",
+        "surface-bright": "#fcf8fa",
+        "error-container": "#ffdad6",
+        "inverse-surface": "#303032",
+        "on-error": "#ffffff",
+        "primary-container": "#131b2e",
+        "on-background": "#1b1b1d",
+        "secondary-fixed-dim": "#adc6ff",
+        "surface-container": "#f0edef",
+        "on-error-container": "#93000a",
+        "tertiary": "#000000",
+        "outline-variant": "#c6c6cd",
+        "on-primary-container": "#7c839b",
+        "tertiary-fixed": "#ffddb8",
+        "on-primary": "#ffffff",
+        "outline": "#76777d",
+        "background": "#fcf8fa",
+        "primary-fixed": "#dae2fd",
+        "on-secondary-fixed": "#001a42",
+        "surface": "#fcf8fa",
+        "secondary-container": "#2170e4",
+        "on-tertiary-fixed-variant": "#653e00",
+        "on-secondary": "#ffffff"
+      },
+      "fonts": [
+        "Inter",
+        "JetBrains Mono",
+        "Material Symbols Outlined"
+      ],
+      "layoutHints": {
+        "gridCols": 1,
+        "gap": "1"
+      },
+      "behaviorContract": [
+        {
+          "kind": "button",
+          "label": "Close form",
+          "icon": "close",
+          "action": "dismiss",
+          "expectedBehavior": "close dialog/panel or return to previous state"
+        },
+        {
+          "kind": "button",
+          "label": "Cancel",
+          "icon": null,
+          "action": "dismiss",
+          "expectedBehavior": "close dialog/panel or return to previous state"
+        },
+        {
+          "kind": "button",
+          "label": "Record",
+          "icon": "save",
+          "action": "form-submit",
+          "expectedBehavior": "validate inputs and submit/apply changes"
+        },
+        {
+          "kind": "input",
+          "label": "e.g., Q3 Metric Anomaly",
+          "type": "text",
+          "placeholder": "e.g., Q3 Metric Anomaly",
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        },
+        {
+          "kind": "input",
+          "label": "counterType",
+          "type": "select",
+          "placeholder": "",
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        },
+        {
+          "kind": "input",
+          "label": "0",
+          "type": "number",
+          "placeholder": "0",
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        },
+        {
+          "kind": "input",
+          "label": "Add contextual details about this record...",
+          "type": "textarea",
+          "placeholder": "Add contextual details about this record...",
+          "expectedBehavior": "controlled value with onChange; validation if required by PRD"
+        }
+      ],
+      "tabBar": [],
+      "title": "Record Editor - Signal Cards Canary"
+    }
+  }
+}

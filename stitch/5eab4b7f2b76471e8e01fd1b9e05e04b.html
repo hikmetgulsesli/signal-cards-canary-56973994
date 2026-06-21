@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Signal Cards Canary - Operations</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-secondary-fixed-variant": "#004395",
+                        "tertiary-container": "#2a1700",
+                        "surface-variant": "#e4e2e4",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#45464d",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#dcd9db",
+                        "on-tertiary-container": "#b87500",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#fefcff",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-tint": "#565e74",
+                        "on-surface": "#1b1b1d",
+                        "surface-container-highest": "#e4e2e4",
+                        "on-tertiary-fixed": "#2a1700",
+                        "secondary": "#0058be",
+                        "inverse-primary": "#bec6e0",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-container-low": "#f6f3f5",
+                        "primary-fixed-dim": "#bec6e0",
+                        "inverse-on-surface": "#f3f0f2",
+                        "primary": "#000000",
+                        "surface-container-high": "#eae7e9",
+                        "surface-bright": "#fcf8fa",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#303032",
+                        "on-error": "#ffffff",
+                        "primary-container": "#131b2e",
+                        "on-background": "#1b1b1d",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "surface-container": "#f0edef",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#000000",
+                        "outline-variant": "#c6c6cd",
+                        "on-primary-container": "#7c839b",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-primary": "#ffffff",
+                        "outline": "#76777d",
+                        "background": "#fcf8fa",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary-fixed": "#001a42",
+                        "surface": "#fcf8fa",
+                        "secondary-container": "#2170e4",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-gap-normal": "16px",
+                        "gutter": "12px",
+                        "container-padding": "24px",
+                        "cell-padding-v": "10px",
+                        "unit": "4px",
+                        "cell-padding-h": "12px",
+                        "stack-gap-dense": "8px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "display-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "data-mono": ["13px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "display-sm": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #f8fafc; /* Slate 50 equivalent */ }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .data-card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); }
+        /* Custom scrollbar for density */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="text-on-surface h-screen flex overflow-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-container-padding h-16 fixed top-0 z-50 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-4 w-1/3">
+<span class="font-display-sm text-display-sm font-bold text-primary dark:text-primary-fixed-dim">Signal Cards Canary</span>
+</div>
+<div class="w-1/3 flex justify-center">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input aria-label="Search records (ACT_SEARCH_RECORDS)" class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded bg-surface-container-lowest text-body-sm font-body-sm focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-shadow" placeholder="Search records..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4 w-1/3 justify-end">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">sensors</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded font-body-sm text-body-sm font-semibold hover:bg-on-surface transition-colors" onclick="alert('ACT_CREATE_RECORD')">Create Record</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-16 h-[calc(100vh-64px)] w-60 flex flex-col py-stack-gap-normal z-40 bg-white dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline">
+<div class="px-container-padding mb-6 hidden">
+<!-- Header hidden as it's merged into Top Nav for this layout, but keeping semantic structure ready -->
+<h1 class="font-headline text-headline font-black text-primary dark:text-primary-fixed-dim">Signal Cards</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Canary v1.0</p>
+</div>
+<ul class="flex-1 flex flex-col gap-1 px-3">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-container-low text-secondary font-bold hover:bg-surface-container transition-all translate-x-1 border-l-2 border-secondary" href="#">
+<span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
+<span class="font-body-sm text-body-sm">Operations</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-body-sm text-body-sm">Insights</span>
+</a>
+</li>
+</ul>
+<div class="px-3 mt-auto">
+<ul class="flex flex-col gap-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">developer_board</span>
+<span class="font-body-sm text-body-sm">Technical Status</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-60 mt-16 p-container-padding flex-1 flex flex-col overflow-hidden bg-[#f8fafc]">
+<!-- Metric Counters (Top) -->
+<div class="grid grid-cols-3 gap-gutter mb-stack-gap-normal shrink-0">
+<!-- Red Counter -->
+<div class="bg-white border border-outline-variant rounded-lg p-4 border-t-4 border-t-error data-card-shadow flex flex-col justify-between h-28">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Critical Alerts</span>
+<span class="material-symbols-outlined text-error text-[20px]">warning</span>
+</div>
+<div class="font-display-lg text-display-lg font-data-mono text-on-surface">012</div>
+</div>
+<!-- Emerald/Green Counter -->
+<div class="bg-white border border-outline-variant rounded-lg p-4 border-t-4 border-t-[#10b981] data-card-shadow flex flex-col justify-between h-28">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Active Validations</span>
+<span class="material-symbols-outlined text-[#10b981] text-[20px]">verified</span>
+</div>
+<div class="font-display-lg text-display-lg font-data-mono text-on-surface">845</div>
+</div>
+<!-- Blue Counter -->
+<div class="bg-white border border-outline-variant rounded-lg p-4 border-t-4 border-t-secondary data-card-shadow flex flex-col justify-between h-28">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Pending Review</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">pending_actions</span>
+</div>
+<div class="font-display-lg text-display-lg font-data-mono text-on-surface">1,024</div>
+</div>
+</div>
+<!-- Data Area (Table + Master/Detail) -->
+<div class="flex flex-1 gap-gutter overflow-hidden min-h-0">
+<!-- Left Side: Table & Filters -->
+<div class="flex-1 flex flex-col bg-white border border-outline-variant rounded-lg overflow-hidden data-card-shadow">
+<!-- Toolbar -->
+<div class="px-cell-padding-h py-cell-padding-v border-b border-outline-variant bg-[#f1f5f9] flex justify-between items-center shrink-0">
+<div class="flex gap-2">
+<select class="text-body-sm font-body-sm border border-outline-variant rounded bg-white px-2 py-1 outline-none focus:ring-1 focus:ring-secondary">
+<option>All Statuses</option>
+<option>Critical</option>
+<option>Active</option>
+<option>Pending</option>
+</select>
+<select class="text-body-sm font-body-sm border border-outline-variant rounded bg-white px-2 py-1 outline-none focus:ring-1 focus:ring-secondary">
+<option>Last 24 Hours</option>
+<option>Last 7 Days</option>
+<option>All Time</option>
+</select>
+</div>
+<button aria-label="Filter Options" class="text-on-surface-variant hover:text-primary transition-colors flex items-center">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+<!-- Table Wrapper -->
+<div class="flex-1 overflow-auto relative">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-[#f1f5f9] border-b border-outline-variant shadow-sm z-10">
+<tr>
+<th class="font-label-caps text-label-caps text-on-surface-variant px-cell-padding-h py-2 font-medium uppercase tracking-wider w-24">ID</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant px-cell-padding-h py-2 font-medium uppercase tracking-wider">Title</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant px-cell-padding-h py-2 font-medium uppercase tracking-wider w-32">Status</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant px-cell-padding-h py-2 font-medium uppercase tracking-wider w-40 text-right">Last Activity</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface divide-y divide-outline-variant/30">
+<!-- Selected Row -->
+<tr class="bg-secondary-fixed/30 hover:bg-surface-container transition-colors cursor-pointer group">
+<td class="px-cell-padding-h py-cell-padding-v font-data-mono text-data-mono">REC-8041</td>
+<td class="px-cell-padding-h py-cell-padding-v font-medium">Utility Batch Processing Alpha</td>
+<td class="px-cell-padding-h py-cell-padding-v">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[10px] font-bold uppercase tracking-wide">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Critical
+                                    </span>
+</td>
+<td class="px-cell-padding-h py-cell-padding-v font-data-mono text-data-mono text-on-surface-variant text-right">10:42 AM</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors cursor-pointer group">
+<td class="px-cell-padding-h py-cell-padding-v font-data-mono text-data-mono">REC-8040</td>
+<td class="px-cell-padding-h py-cell-padding-v font-medium">Daily Reconciliation Node</td>
+<td class="px-cell-padding-h py-cell-padding-v">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#d1fae5] text-[#065f46] text-[10px] font-bold uppercase tracking-wide">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span> Active
+                                    </span>
+</td>
+<td class="px-cell-padding-h py-cell-padding-v font-data-mono text-data-mono text-on-surface-variant text-right">09:15 AM</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors cursor-pointer group">
+<td class="px-cell-padding-h py-cell-padding-v font-data-mono text-data-mono">REC-8039</td>
+<td class="px-cell-padding-h py-cell-padding-v font-medium">Gateway Protocol Verification</td>
+<td class="px-cell-padding-h py-cell-padding-v">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#fef3c7] text-[#92400e] text-[10px] font-bold uppercase tracking-wide">
+<span class="w-1.5 h-1.5 rounded-full bg-[#f59e0b]"></span> Pending
+                                    </span>
+</td>
+<td class="px-cell-padding-h py-cell-padding-v font-data-mono text-data-mono text-on-surface-variant text-right">Yesterday</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors cursor-pointer group">
+<td class="px-cell-padding-h py-cell-padding-v font-data-mono text-data-mono">REC-8038</td>
+<td class="px-cell-padding-h py-cell-padding-v font-medium">System State Archival</td>
+<td class="px-cell-padding-h py-cell-padding-v">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#d1fae5] text-[#065f46] text-[10px] font-bold uppercase tracking-wide">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span> Active
+                                    </span>
+</td>
+<td class="px-cell-padding-h py-cell-padding-v font-data-mono text-data-mono text-on-surface-variant text-right">Yesterday</td>
+</tr>
+<!-- Empty State Example (Hidden normally, shown if no results) -->
+<!--
+                             <tr>
+                                 <td colspan="4" class="text-center py-20">
+                                    <div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60">
+                                        <span class="material-symbols-outlined text-[48px] mb-4">search_off</span>
+                                        <p class="font-headline text-headline mb-2 text-on-surface">No records found</p>
+                                        <p class="font-body-sm text-body-sm max-w-sm text-center">Try adjusting your filters or search query to find what you're looking for.</p>
+                                        <button class="mt-4 px-4 py-2 border border-outline-variant rounded text-body-sm hover:bg-surface-container transition-colors">Clear Filters</button>
+                                    </div>
+                                 </td>
+                             </tr>
+                             -->
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Side: Selected Item Preview -->
+<div class="w-1/3 bg-white border border-outline-variant rounded-lg flex flex-col data-card-shadow shrink-0 overflow-hidden">
+<!-- Header -->
+<div class="px-container-padding py-stack-gap-normal border-b border-outline-variant flex justify-between items-start bg-[#f8fafc]">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-data-mono text-data-mono text-on-surface-variant">REC-8041</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[10px] font-bold uppercase tracking-wide">Critical</span>
+</div>
+<h2 class="font-headline text-headline text-on-surface">Utility Batch Processing Alpha</h2>
+</div>
+<button class="text-on-surface-variant hover:bg-surface-container p-1 rounded transition-colors">
+<span class="material-symbols-outlined text-[20px]">open_in_new</span>
+</button>
+</div>
+<!-- Details Body -->
+<div class="flex-1 overflow-auto p-container-padding">
+<div class="space-y-6">
+<!-- Key Value Pairs -->
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Origin</p>
+<p class="font-body-sm text-body-sm text-on-surface">Node Cluster 04</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Timestamp</p>
+<p class="font-data-mono text-data-mono text-on-surface">2023-10-27T10:42:01Z</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase tracking-wider">Assigned To</p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant flex items-center justify-center text-[10px] font-bold text-on-surface-variant">JD</div>
+<p class="font-body-sm text-body-sm text-on-surface">J. Doe</p>
+</div>
+</div>
+</div>
+<hr class="border-outline-variant/50"/>
+<!-- Log Snippet (Data Dense) -->
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-2 uppercase tracking-wider">System Output</p>
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-3 font-data-mono text-data-mono text-[11px] leading-relaxed text-on-surface overflow-x-auto">
+[WARN] 10:42:00: Threshold exceeded on Node 4
+[ERR ] 10:42:01: Batch payload rejected. Integrity check failed.
+[INFO] 10:42:01: Retrying connection to secondary datastore...
+                            </div>
+</div>
+<!-- Error simulation action -->
+<div class="bg-error-container/30 border border-error-container rounded p-3 flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-error-container flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">sync_problem</span>
+                                Sync interrupted
+                            </span>
+<button class="px-3 py-1 bg-white border border-outline-variant rounded font-label-caps text-label-caps hover:bg-surface-container transition-colors" onclick="alert('ACT_RETRY_LOAD')">Retry</button>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="px-container-padding py-3 border-t border-outline-variant bg-[#f8fafc] flex justify-end gap-2">
+<button class="px-4 py-2 border border-outline-variant rounded font-body-sm text-body-sm font-medium hover:bg-surface-container transition-colors">Acknowledge</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded font-body-sm text-body-sm font-semibold hover:bg-on-surface transition-colors">Resolve</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Global App Smoke Bridge Indicator -->
+<div class="fixed bottom-4 left-4 z-50 flex items-center gap-2 bg-white px-3 py-1.5 rounded shadow-sm border border-outline-variant text-[11px] font-data-mono text-on-surface-variant">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-[#10b981]"></span>
+</span>
+        window.app : connected
+    </div>
+</body></html>

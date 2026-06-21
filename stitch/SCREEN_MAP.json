@@ -1,0 +1,29 @@
+[
+  {
+    "screenId": "e018f53372464c4e8c38e1bb3fb484bf",
+    "name": "Record Editor - Signal Cards Canary",
+    "type": "form",
+    "description": "Record Editor - Signal Cards Canary screen",
+    "surfaceIds": [
+      "SURF_RECORD_EDITOR"
+    ]
+  },
+  {
+    "screenId": "df1dea318af0422288bf56b4bdbc8489",
+    "name": "Insights - Signal Cards Canary",
+    "type": "app-screen",
+    "description": "Insights - Signal Cards Canary screen",
+    "surfaceIds": [
+      "SURF_INSIGHTS"
+    ]
+  },
+  {
+    "screenId": "5eab4b7f2b76471e8e01fd1b9e05e04b",
+    "name": "Record Operations - Signal Cards Canary",
+    "type": "app-screen",
+    "description": "Record Operations - Signal Cards Canary screen",
+    "surfaceIds": [
+      "SURF_RECORD_OPERATIONS"
+    ]
+  }
+]
