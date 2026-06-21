@@ -1,0 +1,404 @@
+[
+  {
+    "screenId": "e018f53372464c4e8c38e1bb3fb484bf",
+    "screenTitle": "Record Editor - Signal Cards Canary",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "button",
+        "label": "Close form",
+        "line": 126
+      },
+      {
+        "type": "button",
+        "label": "Cancel",
+        "line": 188
+      },
+      {
+        "type": "button",
+        "label": "Record",
+        "line": 191
+      },
+      {
+        "type": "input",
+        "label": "e.g., Q3 Metric Anomaly",
+        "inputType": "text",
+        "placeholder": "e.g., Q3 Metric Anomaly",
+        "line": 138
+      },
+      {
+        "type": "input",
+        "label": "select",
+        "inputType": "select",
+        "line": 155
+      },
+      {
+        "type": "input",
+        "label": "0",
+        "inputType": "number",
+        "placeholder": "0",
+        "line": 173
+      },
+      {
+        "type": "input",
+        "label": "Add contextual details about this record...",
+        "inputType": "textarea",
+        "placeholder": "Add contextual details about this record...",
+        "line": 183
+      },
+      {
+        "type": "form",
+        "label": "form",
+        "line": 131
+      }
+    ],
+    "navigation": [],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "Close form",
+        "line": 126
+      },
+      {
+        "type": "button",
+        "label": "Cancel",
+        "line": 188
+      },
+      {
+        "type": "button",
+        "label": "Record",
+        "line": 191
+      }
+    ],
+    "inputs": [
+      {
+        "type": "input",
+        "label": "e.g., Q3 Metric Anomaly",
+        "inputType": "text",
+        "placeholder": "e.g., Q3 Metric Anomaly",
+        "line": 138
+      },
+      {
+        "type": "input",
+        "label": "select",
+        "inputType": "select",
+        "line": 155
+      },
+      {
+        "type": "input",
+        "label": "0",
+        "inputType": "number",
+        "placeholder": "0",
+        "line": 173
+      },
+      {
+        "type": "input",
+        "label": "Add contextual details about this record...",
+        "inputType": "textarea",
+        "placeholder": "Add contextual details about this record...",
+        "line": 183
+      }
+    ],
+    "hardcodedData": [],
+    "totalInteractive": 8,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "df1dea318af0422288bf56b4bdbc8489",
+    "screenTitle": "Insights - Signal Cards Canary",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 185
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 189
+      },
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 208
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 212
+      },
+      {
+        "type": "link",
+        "label": "Technical Status",
+        "href": "#",
+        "line": 218
+      },
+      {
+        "type": "button",
+        "label": "Create Record",
+        "line": 202
+      },
+      {
+        "type": "button",
+        "label": "filter_list",
+        "line": 233
+      },
+      {
+        "type": "button",
+        "label": "Export Summary",
+        "line": 236
+      },
+      {
+        "type": "button",
+        "label": "View All Logs",
+        "line": 348
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 185
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 189
+      },
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 208
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 212
+      },
+      {
+        "type": "link",
+        "label": "Technical Status",
+        "href": "#",
+        "line": 218
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "Create Record",
+        "line": 202
+      },
+      {
+        "type": "button",
+        "label": "filter_list",
+        "line": 233
+      },
+      {
+        "type": "button",
+        "label": "Export Summary",
+        "line": 236
+      },
+      {
+        "type": "button",
+        "label": "View All Logs",
+        "line": 348
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 9,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "5eab4b7f2b76471e8e01fd1b9e05e04b",
+    "screenTitle": "Record Operations - Signal Cards Canary",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 144
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 150
+      },
+      {
+        "type": "link",
+        "label": "Technical Status",
+        "href": "#",
+        "line": 159
+      },
+      {
+        "type": "button",
+        "label": "sensors",
+        "line": 126
+      },
+      {
+        "type": "button",
+        "label": "settings",
+        "line": 129
+      },
+      {
+        "type": "button",
+        "label": "Create Record",
+        "line": 132
+      },
+      {
+        "type": "button",
+        "label": "Filter Options",
+        "line": 215
+      },
+      {
+        "type": "button",
+        "label": "Clear Filters",
+        "line": 280
+      },
+      {
+        "type": "button",
+        "label": "open_in_new",
+        "line": 300
+      },
+      {
+        "type": "button",
+        "label": "Retry",
+        "line": 341
+      },
+      {
+        "type": "button",
+        "label": "Acknowledge",
+        "line": 347
+      },
+      {
+        "type": "button",
+        "label": "Resolve",
+        "line": 348
+      },
+      {
+        "type": "input",
+        "label": "Search records...",
+        "inputType": "text",
+        "placeholder": "Search records...",
+        "line": 122
+      },
+      {
+        "type": "input",
+        "label": "select",
+        "inputType": "select",
+        "line": 203
+      },
+      {
+        "type": "input",
+        "label": "select",
+        "inputType": "select",
+        "line": 209
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 144
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 150
+      },
+      {
+        "type": "link",
+        "label": "Technical Status",
+        "href": "#",
+        "line": 159
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "sensors",
+        "line": 126
+      },
+      {
+        "type": "button",
+        "label": "settings",
+        "line": 129
+      },
+      {
+        "type": "button",
+        "label": "Create Record",
+        "line": 132
+      },
+      {
+        "type": "button",
+        "label": "Filter Options",
+        "line": 215
+      },
+      {
+        "type": "button",
+        "label": "Clear Filters",
+        "line": 280
+      },
+      {
+        "type": "button",
+        "label": "open_in_new",
+        "line": 300
+      },
+      {
+        "type": "button",
+        "label": "Retry",
+        "line": 341
+      },
+      {
+        "type": "button",
+        "label": "Acknowledge",
+        "line": 347
+      },
+      {
+        "type": "button",
+        "label": "Resolve",
+        "line": 348
+      }
+    ],
+    "inputs": [
+      {
+        "type": "input",
+        "label": "Search records...",
+        "inputType": "text",
+        "placeholder": "Search records...",
+        "line": 122
+      },
+      {
+        "type": "input",
+        "label": "select",
+        "inputType": "select",
+        "line": 203
+      },
+      {
+        "type": "input",
+        "label": "select",
+        "inputType": "select",
+        "line": 209
+      }
+    ],
+    "hardcodedData": [],
+    "totalInteractive": 15,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  }
+]
