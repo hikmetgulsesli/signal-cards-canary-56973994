@@ -5,18 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Signal Cards Canary</title>
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <style>
-      .app-nav {
-        width: min(720px, 100%);
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        margin-top: 16px;
-      }
-      .app-nav a {
-        text-decoration: none;
-      }
-    </style>
   </head>
   <body>
     <main data-setfarm-root="baseline" data-testid="setfarm-app-root" class="app-shell"></main>
@@ -26,19 +14,21 @@
     <script src="assets/js/test-bridge.js" defer></script>
     <script>
       (function () {
-        'use strict';
         function addStoryNav() {
           const root = document.querySelector('[data-setfarm-root="baseline"]');
-          if (!root) return;
-          if (root.querySelector('[data-testid="story-nav"]')) return;
+          if (!root || root.dataset.storyNavAdded) return;
+
           const nav = document.createElement('nav');
-          nav.className = 'app-nav';
+          nav.className = 'global-actions';
           nav.setAttribute('data-testid', 'story-nav');
           nav.innerHTML =
             '<a href="record-operations-signal-cards-canary.html" class="btn btn-secondary" data-action-id="ACT_OPERATIONS">Record Operations</a>' +
+            '<a href="insights-signal-cards-canary.html" class="btn btn-secondary" data-action-id="ACT_INSIGHTS">Insights</a>' +
             '<a href="record-editor-signal-cards-canary.html" class="btn btn-secondary" data-action-id="ACT_CREATE_RECORD">Create Record</a>';
           root.appendChild(nav);
+          root.dataset.storyNavAdded = 'true';
         }
+
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', addStoryNav);
         } else {

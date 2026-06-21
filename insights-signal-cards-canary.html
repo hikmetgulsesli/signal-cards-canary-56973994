@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insights - Signal Cards Canary</title>
+    <link rel="stylesheet" href="stitch/design-tokens.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .screen-shell {
+        min-height: 100vh;
+        padding: var(--spacing-container-padding, 24px);
+      }
+      .screen-header {
+        width: min(960px, 100%);
+        margin: 0 auto 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .screen-header h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 700;
+      }
+      .screen-nav {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .screen-nav a {
+        text-decoration: none;
+        color: var(--color-on-surface-variant, #45464d);
+        font-weight: 600;
+      }
+      .screen-nav a[aria-current="page"] {
+        color: var(--color-primary, #000000);
+        text-decoration: underline;
+      }
+      .controls-bar {
+        width: min(960px, 100%);
+        margin: 0 auto 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+      .filter-panel {
+        width: min(960px, 100%);
+        margin: 0 auto 16px;
+        padding: 16px;
+        background: var(--color-surface-container-low, #f6f3f5);
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+        display: none;
+      }
+      .filter-panel.is-open {
+        display: block;
+      }
+      .filter-panel fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+      }
+      .filter-panel legend {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .filter-panel select {
+        padding: 10px 12px;
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-DEFAULT, 0.125rem);
+        font-size: 13px;
+        background: var(--color-surface-container-lowest, #ffffff);
+      }
+      .metrics-grid {
+        width: min(960px, 100%);
+        margin: 0 auto 16px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+      }
+      .metric-card {
+        background: var(--color-surface-container-lowest, #ffffff);
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .metric-label {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-on-surface-variant, #45464d);
+      }
+      .metric-value {
+        font-size: 32px;
+        font-weight: 600;
+        line-height: 1.2;
+      }
+      .section-card {
+        width: min(960px, 100%);
+        margin: 0 auto 16px;
+        background: var(--color-surface-container-lowest, #ffffff);
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+        padding: 16px;
+      }
+      .section-card h2 {
+        margin: 0 0 12px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .distribution-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .distribution-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+      }
+      .distribution-track {
+        flex: 1;
+        height: 8px;
+        background: var(--color-surface-container-low, #f6f3f5);
+        border-radius: var(--radius-full, 0.75rem);
+        overflow: hidden;
+      }
+      .distribution-fill {
+        height: 100%;
+        background: var(--color-secondary, #0058be);
+        border-radius: var(--radius-full, 0.75rem);
+      }
+      .distribution-count {
+        min-width: 32px;
+        text-align: right;
+        font-weight: 600;
+      }
+      .activity-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-height: 240px;
+        overflow-y: auto;
+      }
+      .activity-item {
+        padding: 10px 12px;
+        background: var(--color-surface-container-low, #f6f3f5);
+        border-radius: var(--radius-DEFAULT, 0.125rem);
+        font-size: 13px;
+      }
+      .activity-item time {
+        color: var(--color-on-surface-variant, #45464d);
+      }
+      .hint-banner {
+        width: min(960px, 100%);
+        margin: 0 auto 16px;
+        padding: 12px 16px;
+        background: var(--color-primary-fixed, #dae2fd);
+        border-radius: var(--radius-lg, 0.25rem);
+        font-size: 14px;
+      }
+      .empty-state {
+        width: min(960px, 100%);
+        margin: 0 auto;
+        padding: 40px;
+        text-align: center;
+        color: var(--color-on-surface-variant, #45464d);
+        border: 1px dashed var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+      }
+      .icon-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+      }
+      .icon-btn svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+      .section-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen-shell" data-setfarm-root="insights" data-testid="insights-screen">
+      <header class="screen-header">
+        <h1>Insights</h1>
+        <nav class="screen-nav" aria-label="Section navigation">
+          <a href="record-operations-signal-cards-canary.html" data-action-id="ACT_OPERATIONS">Operations</a>
+          <a href="insights-signal-cards-canary.html" aria-current="page" data-action-id="ACT_INSIGHTS">Insights</a>
+          <a href="index.html">Technical Status</a>
+        </nav>
+      </header>
+
+      <section class="controls-bar">
+        <button type="button" class="btn btn-primary" data-action-id="ACT_CREATE_RECORD" data-testid="create-record">Create Record</button>
+        <button type="button" class="btn btn-ghost icon-btn" data-action-id="ACT_FILTER_INSIGHTS" data-testid="filter-insights" aria-label="Filter insights">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4.25 5.61C6.57 8.59 10 13 10 13v5.76c0 .8.89 1.28 1.55.84l2.79-1.86a.998.998 0 0 0 .44-.83V13s3.43-4.41 5.75-7.39c.46-.61.03-1.61-.76-1.61H5.01c-.79 0-1.22 1-.76 1.61z"/>
+          </svg>
+        </button>
+        <button type="button" class="btn btn-secondary" data-action-id="ACT_EXPORT_SUMMARY" data-testid="export-summary">Export Summary</button>
+      </section>
+
+      <section class="filter-panel" data-testid="insights-filter-panel" aria-live="polite">
+        <fieldset>
+          <legend>Filter insights</legend>
+          <select data-filter-id="status" aria-label="Filter by status" data-testid="filter-status">
+            <option value="">All statuses</option>
+            <option value="open">Open</option>
+            <option value="acknowledged">Acknowledged</option>
+            <option value="resolved">Resolved</option>
+          </select>
+          <select data-filter-id="type" aria-label="Filter by type" data-testid="filter-type">
+            <option value="">All types</option>
+            <option value="anomaly">Anomaly</option>
+            <option value="performance">Performance</option>
+            <option value="infrastructure">Infrastructure</option>
+            <option value="security">Security</option>
+          </select>
+        </fieldset>
+      </section>
+
+      <section class="hint-banner" data-testid="insights-hint"></section>
+
+      <section class="metrics-grid" data-testid="metrics-grid" aria-live="polite"></section>
+
+      <section class="section-card">
+        <h2>State Distribution</h2>
+        <div class="distribution-list" data-testid="distribution-list"></div>
+      </section>
+
+      <section class="section-card">
+        <h2>Recent Activity</h2>
+        <div class="activity-list" data-testid="activity-list"></div>
+        <div class="section-actions">
+          <button type="button" class="btn btn-ghost" data-action-id="ACT_VIEW_ALL_LOGS" data-testid="view-all-logs">View All Logs</button>
+        </div>
+      </section>
+
+      <section class="empty-state" data-testid="insights-empty-state" style="display: none;">
+        <p>No records available. Create a record to see insights.</p>
+      </section>
+    </div>
+
+    <script src="assets/js/us-002/act_create_record.js" defer></script>
+    <script src="assets/js/us-003/act_filter_insights.js" defer></script>
+    <script src="assets/js/us-003/act_export_summary.js" defer></script>
+  </body>
+</html>
