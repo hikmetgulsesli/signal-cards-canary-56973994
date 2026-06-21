@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Record Operations - Signal Cards Canary</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .screen-root {
+        min-height: 100vh;
+        background: var(--color-background, #fcf8fa);
+        color: var(--color-on-background, #1b1b1d);
+      }
+      .top-nav {
+        display: flex;
+        gap: var(--spacing-stack-gap-normal, 16px);
+        align-items: center;
+        padding: var(--spacing-container-padding, 24px);
+        border-bottom: 1px solid var(--color-outline-variant, #c6c6cd);
+        background: var(--color-surface-container-lowest, #ffffff);
+      }
+      .top-nav a {
+        font-family: var(--font-body-sm, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 16px;
+        color: var(--color-on-surface-variant, #45464d);
+        text-decoration: none;
+        padding: 6px 0;
+      }
+      .top-nav a[aria-current="page"] {
+        color: var(--color-primary, #000000);
+        border-bottom: 2px solid var(--color-primary, #000000);
+      }
+      .record-layout {
+        width: min(960px, 100%);
+        margin: 0 auto;
+        padding: var(--spacing-container-padding, 24px);
+      }
+      .record-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: var(--spacing-stack-gap-normal, 16px);
+      }
+      .record-header h1 {
+        margin: 0;
+        font-family: var(--font-display-lg, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 36px;
+      }
+      .record-toolbar {
+        display: flex;
+        gap: var(--spacing-stack-gap-dense, 8px);
+        margin-bottom: var(--spacing-stack-gap-normal, 16px);
+        flex-wrap: wrap;
+      }
+      .search-bar {
+        display: flex;
+        gap: var(--spacing-stack-gap-dense, 8px);
+        margin-bottom: var(--spacing-stack-gap-normal, 16px);
+        flex-wrap: wrap;
+      }
+      .search-bar input,
+      .search-bar select {
+        appearance: none;
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-DEFAULT, 0.125rem);
+        padding: 10px 12px;
+        font-family: var(--font-body-sm, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        background: var(--color-surface-container-lowest, #ffffff);
+        color: var(--color-on-background, #1b1b1d);
+      }
+      .search-bar input {
+        flex: 1 1 240px;
+        min-width: 200px;
+      }
+      .search-bar select {
+        min-width: 140px;
+      }
+      .filter-row {
+        display: flex;
+        gap: var(--spacing-stack-gap-dense, 8px);
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: var(--spacing-stack-gap-normal, 16px);
+      }
+      .results-meta {
+        font-family: var(--font-body-sm, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        color: var(--color-on-surface-variant, #45464d);
+        margin-bottom: var(--spacing-stack-gap-dense, 8px);
+      }
+      .record-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--color-surface-container-lowest, #ffffff);
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+        overflow: hidden;
+        margin-bottom: var(--spacing-stack-gap-normal, 16px);
+      }
+      .record-table th,
+      .record-table td {
+        padding: 12px;
+        text-align: left;
+        font-family: var(--font-body-sm, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        border-bottom: 1px solid var(--color-outline-variant, #c6c6cd);
+      }
+      .record-table th {
+        background: var(--color-surface-container-low, #f6f3f5);
+        font-weight: 700;
+      }
+      .record-table tr[data-selected="true"] td {
+        background: var(--color-secondary-container, #2170e4);
+        color: var(--color-on-secondary-container, #fefcff);
+      }
+      .status-chip {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .status-chip--open { background: var(--counter-blue-light, #d8e2ff); color: var(--counter-blue, #0058be); }
+      .status-chip--acknowledged { background: var(--counter-amber-light, #ffddb8); color: var(--counter-amber, #b87500); }
+      .status-chip--resolved { background: var(--counter-emerald-light, #d0f5e5); color: var(--counter-emerald, #006c4e); }
+      .record-actions-cell {
+        display: flex;
+        gap: var(--spacing-stack-gap-dense, 8px);
+      }
+      .retry-panel {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-stack-gap-dense, 8px);
+        padding: var(--spacing-container-padding, 24px);
+        background: var(--color-surface-container-low, #f6f3f5);
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+      }
+      .feedback-text {
+        font-family: var(--font-body-sm, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        color: var(--color-on-surface-variant, #45464d);
+      }
+      .empty-state {
+        padding: 48px;
+        text-align: center;
+        color: var(--color-on-surface-variant, #45464d);
+      }
+      .toast {
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        padding: 12px 16px;
+        background: var(--color-surface-container-lowest, #ffffff);
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        font-family: var(--font-body-sm, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 150ms ease;
+      }
+      .toast--visible { opacity: 1; }
+      @media (max-width: 640px) {
+        .record-header { flex-direction: column; gap: 12px; }
+        .record-table th, .record-table td { padding: 8px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen-root" data-setfarm-root="record-operations">
+      <nav class="top-nav" aria-label="Story navigation">
+        <a href="record-operations-signal-cards-canary.html" data-action-id="operations" aria-current="page">Operations</a>
+        <a href="index.html" data-action-id="insights">Insights</a>
+        <a href="#" data-action-id="technical-status">Technical Status</a>
+      </nav>
+
+      <div class="record-layout">
+        <div class="record-header">
+          <div>
+            <h1>Record Operations</h1>
+            <p class="feedback-text">Manage signal records and recovery flows</p>
+          </div>
+        </div>
+
+        <div class="record-toolbar">
+          <button type="button" class="btn btn-ghost" data-action-id="sensors" aria-label="Sensors">sensors</button>
+          <button type="button" class="btn btn-ghost" data-action-id="settings" aria-label="Settings">settings</button>
+          <button type="button" class="btn btn-primary" data-action-id="create-record">Create Record</button>
+        </div>
+
+        <div class="search-bar">
+          <input
+            type="text"
+            data-action-id="search-records"
+            placeholder="Search records..."
+            aria-label="Search records"
+          />
+        </div>
+
+        <div class="filter-row">
+          <select data-filter="type" aria-label="Filter by type">
+            <option value="all">All types</option>
+            <option value="anomaly">Anomaly</option>
+            <option value="incident">Incident</option>
+            <option value="maintenance">Maintenance</option>
+          </select>
+          <select data-filter="status" aria-label="Filter by status">
+            <option value="all">All statuses</option>
+            <option value="open">Open</option>
+            <option value="acknowledged">Acknowledged</option>
+            <option value="resolved">Resolved</option>
+          </select>
+          <button type="button" class="btn btn-secondary" data-action-id="filter-options">Filter Options</button>
+          <button type="button" class="btn btn-ghost" data-action-id="clear-filters">Clear Filters</button>
+        </div>
+
+        <div class="results-meta" data-testid="results-meta">Loading records...</div>
+
+        <table class="record-table" data-testid="record-table" aria-label="Signal records">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Type</th>
+              <th>Severity</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody data-testid="record-list"></tbody>
+        </table>
+
+        <div class="retry-panel">
+          <span class="feedback-text" data-testid="retry-status">Data loaded</span>
+          <button type="button" class="btn btn-secondary" data-action-id="retry-load">Retry</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" data-testid="toast" role="status" aria-live="polite"></div>
+
+    <script src="assets/js/us-002/act_create_record.js" defer></script>
+    <script src="assets/js/us-002/act_search_records.js" defer></script>
+    <script src="assets/js/us-002/act_select_record.js" defer></script>
+    <script src="assets/js/us-002/act_retry_load.js" defer></script>
+    <script>
+      (function () {
+        'use strict';
+
+        function getEl(selector) {
+          return document.querySelector(selector);
+        }
+
+        function getRecordTypeLabel(value) {
+          const map = { anomaly: 'Anomaly', incident: 'Incident', maintenance: 'Maintenance' };
+          return map[value] || value || '—';
+        }
+
+        function renderStatusChip(status) {
+          const safeStatus = ['open', 'acknowledged', 'resolved'].indexOf(status) !== -1 ? status : 'open';
+          const chip = document.createElement('span');
+          chip.className = 'status-chip status-chip--' + safeStatus;
+          chip.textContent = safeStatus;
+          return chip;
+        }
+
+        function renderRow(record, isSelected) {
+          const tr = document.createElement('tr');
+          tr.setAttribute('data-record-id', String(record.id));
+          tr.setAttribute('data-selected', String(isSelected));
+
+          const titleTd = document.createElement('td');
+          titleTd.textContent = String(record.title || '');
+
+          const typeTd = document.createElement('td');
+          typeTd.textContent = getRecordTypeLabel(record.type);
+
+          const severityTd = document.createElement('td');
+          severityTd.textContent = String(record.severity != null ? record.severity : 0);
+
+          const statusTd = document.createElement('td');
+          statusTd.appendChild(renderStatusChip(record.status));
+
+          const actionsTd = document.createElement('td');
+          actionsTd.className = 'record-actions-cell';
+
+          const openBtn = document.createElement('button');
+          openBtn.type = 'button';
+          openBtn.className = 'btn btn-ghost';
+          openBtn.setAttribute('data-action-id', 'select-record');
+          openBtn.setAttribute('data-record-id', String(record.id));
+          openBtn.setAttribute('aria-label', 'Open record details');
+          openBtn.textContent = 'open_in_new';
+
+          const ackBtn = document.createElement('button');
+          ackBtn.type = 'button';
+          ackBtn.className = 'btn btn-ghost';
+          ackBtn.setAttribute('data-action-id', 'acknowledge');
+          ackBtn.setAttribute('data-record-id', String(record.id));
+          ackBtn.textContent = 'Acknowledge';
+
+          const resolveBtn = document.createElement('button');
+          resolveBtn.type = 'button';
+          resolveBtn.className = 'btn btn-ghost';
+          resolveBtn.setAttribute('data-action-id', 'resolve');
+          resolveBtn.setAttribute('data-record-id', String(record.id));
+          resolveBtn.textContent = 'Resolve';
+
+          actionsTd.appendChild(openBtn);
+          actionsTd.appendChild(ackBtn);
+          actionsTd.appendChild(resolveBtn);
+
+          tr.appendChild(titleTd);
+          tr.appendChild(typeTd);
+          tr.appendChild(severityTd);
+          tr.appendChild(statusTd);
+          tr.appendChild(actionsTd);
+
+          return tr;
+        }
+
+        function renderRecords() {
+          const state = window.US002RecordState ? window.US002RecordState.getState() : { records: [], selectedId: null, query: '', filters: {} };
+          const list = getEl('[data-testid="record-list"]');
+          const meta = getEl('[data-testid="results-meta"]');
+          if (!list || !meta) return;
+
+          list.innerHTML = '';
+          const filtered = window.US002RecordState ? window.US002RecordState.getFilteredRecords() : state.records;
+
+          if (!filtered.length) {
+            const emptyRow = document.createElement('tr');
+            const emptyCell = document.createElement('td');
+            emptyCell.colSpan = 5;
+            emptyCell.className = 'empty-state';
+            emptyCell.textContent = 'No records match the current filters.';
+            emptyRow.appendChild(emptyCell);
+            list.appendChild(emptyRow);
+            meta.textContent = '0 records found';
+            return;
+          }
+
+          filtered.forEach(function (record) {
+            list.appendChild(renderRow(record, state.selectedId === record.id));
+          });
+          meta.textContent = filtered.length + ' record' + (filtered.length === 1 ? '' : 's') + ' found';
+        }
+
+        function init() {
+          if (!window.US002RecordState) return;
+          window.US002RecordState.subscribe(renderRecords);
+          window.US002RecordState.applyFilters();
+          renderRecords();
+          window.app = {
+            name: 'signal-cards-canary:record-operations',
+            ready: true,
+            getState: window.US002RecordState.getState,
+            getFilteredRecords: window.US002RecordState.getFilteredRecords,
+            actions: {
+              createRecord: function () {
+                location.href = 'record-editor-signal-cards-canary.html?new=1';
+                return true;
+              },
+              retryLoad: function () {
+                return window.US002RecordState && typeof window.US002RecordState.retryLoad === 'function'
+                  ? window.US002RecordState.retryLoad()
+                  : false;
+              }
+            }
+          };
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Record Editor - Signal Cards Canary</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .screen-root {
+        min-height: 100vh;
+        background: var(--color-background, #fcf8fa);
+        color: var(--color-on-background, #1b1b1d);
+      }
+      .top-nav {
+        display: flex;
+        gap: var(--spacing-stack-gap-normal, 16px);
+        align-items: center;
+        padding: var(--spacing-container-padding, 24px);
+        border-bottom: 1px solid var(--color-outline-variant, #c6c6cd);
+        background: var(--color-surface-container-lowest, #ffffff);
+      }
+      .top-nav a {
+        font-family: var(--font-body-sm, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 16px;
+        color: var(--color-on-surface-variant, #45464d);
+        text-decoration: none;
+        padding: 6px 0;
+      }
+      .top-nav a[aria-current="page"] {
+        color: var(--color-primary, #000000);
+        border-bottom: 2px solid var(--color-primary, #000000);
+      }
+      .record-layout {
+        width: min(720px, 100%);
+        margin: 0 auto;
+        padding: var(--spacing-container-padding, 24px);
+      }
+      .record-header {
+        margin-bottom: var(--spacing-stack-gap-normal, 16px);
+      }
+      .record-header h1 {
+        margin: 0;
+        font-family: var(--font-display-lg, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 36px;
+      }
+      .record-form {
+        background: var(--color-surface-container-lowest, #ffffff);
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+        padding: var(--spacing-container-padding, 24px);
+      }
+      .form-group {
+        margin-bottom: var(--spacing-stack-gap-normal, 16px);
+      }
+      .form-group label {
+        display: block;
+        font-family: var(--font-label-caps, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 16px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--color-on-surface-variant, #45464d);
+        margin-bottom: 6px;
+      }
+      .form-control {
+        width: 100%;
+        appearance: none;
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-DEFAULT, 0.125rem);
+        padding: 10px 12px;
+        font-family: var(--font-body-sm, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        background: var(--color-surface-container-lowest, #ffffff);
+        color: var(--color-on-background, #1b1b1d);
+      }
+      .form-control:focus-visible {
+        outline: 2px solid var(--color-secondary, #0058be);
+        outline-offset: 2px;
+      }
+      textarea.form-control { min-height: 120px; resize: vertical; }
+      .form-actions {
+        display: flex;
+        gap: var(--spacing-stack-gap-dense, 8px);
+        justify-content: flex-end;
+        margin-top: var(--spacing-stack-gap-normal, 16px);
+      }
+      .feedback-message {
+        font-family: var(--font-body-sm, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        min-height: 20px;
+        margin-top: var(--spacing-stack-gap-dense, 8px);
+      }
+      .feedback-message--error { color: #b3261e; }
+      .feedback-message--success { color: #006c4e; }
+    </style>
+  </head>
+  <body>
+    <div class="screen-root" data-setfarm-root="record-editor">
+      <nav class="top-nav" aria-label="Story navigation">
+        <a href="record-operations-signal-cards-canary.html" data-action-id="operations">Operations</a>
+        <a href="index.html" data-action-id="insights">Insights</a>
+        <a href="#" data-action-id="technical-status">Technical Status</a>
+      </nav>
+
+      <div class="record-layout">
+        <div class="record-header">
+          <h1>Record Editor</h1>
+          <p class="feedback-text">Create or update a signal record</p>
+        </div>
+
+        <form class="record-form" data-action-id="save-record" novalidate>
+          <div class="form-group">
+            <label for="record-title">Title</label>
+            <input
+              id="record-title"
+              name="title"
+              type="text"
+              class="form-control"
+              placeholder="e.g., Q3 Metric Anomaly"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="record-type">Type</label>
+            <select id="record-type" name="type" class="form-control" required>
+              <option value="">select</option>
+              <option value="anomaly">Anomaly</option>
+              <option value="incident">Incident</option>
+              <option value="maintenance">Maintenance</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="record-severity">Severity</label>
+            <input
+              id="record-severity"
+              name="severity"
+              type="number"
+              class="form-control"
+              placeholder="0"
+              min="0"
+              max="5"
+              value="0"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="record-details">Details</label>
+            <textarea
+              id="record-details"
+              name="details"
+              class="form-control"
+              placeholder="Add contextual details about this record..."
+            ></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-ghost" data-action-id="cancel-edit">Close form</button>
+            <button type="button" class="btn btn-ghost" data-action-id="cancel-edit">Cancel</button>
+            <button type="submit" class="btn btn-primary" data-action-id="save-record">Record</button>
+          </div>
+
+          <div class="feedback-message" data-testid="form-feedback" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+
+    <script src="assets/js/us-002/act_create_record.js" defer></script>
+    <script src="assets/js/us-002/act_save_record.js" defer></script>
+    <script src="assets/js/us-002/act_cancel_edit.js" defer></script>
+  </body>
+</html>

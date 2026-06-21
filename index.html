@@ -5,8 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Signal Cards Canary</title>
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .story-nav {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        display: flex;
+        gap: 12px;
+      }
+      .story-nav a {
+        font-family: var(--font-body-sm, Inter), ui-sans-serif, system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--color-on-surface-variant, #45464d);
+        text-decoration: none;
+        padding: 6px 10px;
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-DEFAULT, 0.125rem);
+        background: var(--color-surface-container-lowest, #ffffff);
+      }
+      .story-nav a:hover {
+        background: var(--color-surface-container-low, #f6f3f5);
+      }
+    </style>
   </head>
   <body>
+    <nav class="story-nav" aria-label="Story navigation">
+      <a href="record-operations-signal-cards-canary.html" data-action-id="nav-operations">Operations</a>
+      <a href="record-editor-signal-cards-canary.html?new=1" data-action-id="nav-new-record">New Record</a>
+    </nav>
     <main data-setfarm-root="baseline" data-testid="setfarm-app-root" class="app-shell"></main>
     <script src="assets/js/signal-cards-canary.state.js" defer></script>
     <script src="assets/js/signal-cards-canary.storage.js" defer></script>
