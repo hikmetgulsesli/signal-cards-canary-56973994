@@ -132,9 +132,8 @@
       if (!button) return;
 
       const actionId = button.getAttribute('data-action-id');
-      const counterId = button.closest('[data-counter-id]')
-        ? button.closest('[data-counter-id]').getAttribute('data-counter-id')
-        : null;
+      const counterEl = button.closest('[data-counter-id]');
+      const counterId = counterEl ? counterEl.getAttribute('data-counter-id') : null;
 
       if (actionId === 'add' && counterId) {
         stateApi.incrementCounter(counterId, 1);

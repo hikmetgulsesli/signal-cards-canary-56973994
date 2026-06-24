@@ -142,7 +142,7 @@
       typeBadge.textContent = record.type || 'unknown';
 
       meta.appendChild(typeBadge);
-      meta.appendChild(document.createTextNode(' · Severity ' + record.severity + ' · ' + record.status + ' · ' + formatDate(record.createdAt)));
+      meta.appendChild(document.createTextNode(' · Severity ' + (record.severity != null ? record.severity : '0') + ' · ' + (record.status || 'unknown') + ' · ' + formatDate(record.createdAt)));
 
       main.appendChild(title);
       main.appendChild(meta);
