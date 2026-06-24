@@ -6,19 +6,23 @@
     <title>Signal Cards Canary</title>
     <link rel="stylesheet" href="assets/css/styles.css" />
     <style>
-      .app-nav {
-        width: min(720px, 100%);
+      .app-header {
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+      .app-nav {
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
-        gap: 16px;
-        padding: 12px;
-        margin-bottom: 8px;
+        gap: 12px;
+        align-items: center;
       }
       .app-nav a {
         text-decoration: none;
         color: var(--color-on-surface-variant, #45464d);
         font-weight: 600;
-        font-size: 14px;
       }
       .app-nav a[aria-current="page"] {
         color: var(--color-primary, #000000);
@@ -32,57 +36,5 @@
     <script src="assets/js/signal-cards-canary.storage.js" defer></script>
     <script src="assets/js/app.js" defer></script>
     <script src="assets/js/test-bridge.js" defer></script>
-    <script>
-      (function () {
-        'use strict';
-
-        function buildNav() {
-          const nav = document.createElement('nav');
-          nav.className = 'app-nav';
-          nav.setAttribute('data-testid', 'app-navigation');
-          nav.setAttribute('aria-label', 'Application navigation');
-          nav.innerHTML =
-            '<a href="record-operations-signal-cards-canary.html" data-action-id="ACT_OPERATIONS">Operations</a>' +
-            '<a href="insights-signal-cards-canary.html" data-action-id="ACT_INSIGHTS">Insights</a>' +
-            '<a href="index.html" aria-current="page" data-action-id="ACT_TECHNICAL_STATUS">Technical Status</a>';
-          return nav;
-        }
-
-        function enhanceNavigation() {
-          const root = document.querySelector('[data-setfarm-root="baseline"]');
-          if (!root) return;
-
-          const existingNav = root.querySelector('[data-testid="app-navigation"]');
-          if (existingNav) return;
-
-          const header = root.querySelector('.app-header');
-          if (header) {
-            root.insertBefore(buildNav(), header);
-          } else if (root.firstChild) {
-            root.insertBefore(buildNav(), root.firstChild);
-          }
-        }
-
-        function observeRoot() {
-          const root = document.querySelector('[data-setfarm-root="baseline"]');
-          if (!root) return;
-
-          enhanceNavigation();
-
-          if (typeof MutationObserver !== 'undefined') {
-            const observer = new MutationObserver(function () {
-              enhanceNavigation();
-            });
-            observer.observe(root, { childList: true, subtree: true });
-          }
-        }
-
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', observeRoot);
-        } else {
-          observeRoot();
-        }
-      })();
-    </script>
   </body>
 </html>
