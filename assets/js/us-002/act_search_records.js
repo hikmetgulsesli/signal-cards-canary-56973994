@@ -94,7 +94,10 @@
 
       const meta = document.createElement('span');
       meta.className = 'record-meta';
-      meta.textContent = (record.type || 'unknown') + ' · Severity ' + (record.severity != null ? record.severity : '0') + ' · ' + (record.status || 'unknown');
+      const type = record.type || 'unknown';
+      const severity = record.severity !== undefined && record.severity !== null ? record.severity : '—';
+      const status = record.status || 'unknown';
+      meta.textContent = type + ' · Severity ' + severity + ' · ' + status;
 
       main.appendChild(title);
       main.appendChild(meta);

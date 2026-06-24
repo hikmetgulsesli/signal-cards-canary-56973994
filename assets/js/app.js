@@ -21,27 +21,15 @@
       });
   }
 
-  function clearChildren(el) {
-    while (el.firstChild) {
-      el.removeChild(el.firstChild);
-    }
-  }
-
   function initApp() {
     const root = document.querySelector('[data-setfarm-root="baseline"]');
     if (!root) return;
 
-    clearChildren(root);
+    root.innerHTML = '';
 
     const header = document.createElement('header');
     header.className = 'app-header';
-    const title = document.createElement('h1');
-    title.textContent = 'Signal Cards Canary';
-    const subtitle = document.createElement('p');
-    subtitle.className = 'subtitle';
-    subtitle.textContent = 'Operational note counter';
-    header.appendChild(title);
-    header.appendChild(subtitle);
+    header.innerHTML = '<h1>Signal Cards Canary</h1><p class="subtitle">Operational note counter</p>';
     root.appendChild(header);
 
     const countersEl = document.createElement('section');
@@ -51,12 +39,8 @@
 
     const globalActions = document.createElement('div');
     globalActions.className = 'global-actions';
-    const resetAllBtn = document.createElement('button');
-    resetAllBtn.type = 'button';
-    resetAllBtn.className = 'btn btn-secondary';
-    resetAllBtn.setAttribute('data-action-id', 'reset-all');
-    resetAllBtn.textContent = 'Reset All';
-    globalActions.appendChild(resetAllBtn);
+    globalActions.innerHTML =
+      '<button type="button" class="btn btn-secondary" data-action-id="reset-all">Reset All</button>';
     root.appendChild(globalActions);
 
     function renderCounter(counter) {
@@ -110,7 +94,7 @@
     }
 
     function render(state) {
-      clearChildren(countersEl);
+      countersEl.innerHTML = '';
       Object.keys(state.counters).forEach(function (id) {
         countersEl.appendChild(renderCounter(state.counters[id]));
       });
@@ -132,8 +116,9 @@
       if (!button) return;
 
       const actionId = button.getAttribute('data-action-id');
-      const counterEl = button.closest('[data-counter-id]');
-      const counterId = counterEl ? counterEl.getAttribute('data-counter-id') : null;
+      const counterId = button.closest('[data-counter-id]')
+        ? button.closest('[data-counter-id]').getAttribute('data-counter-id')
+        : null;
 
       if (actionId === 'add' && counterId) {
         stateApi.incrementCounter(counterId, 1);

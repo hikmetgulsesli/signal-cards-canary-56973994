@@ -141,8 +141,10 @@
       typeBadge.className = 'insight-type-badge';
       typeBadge.textContent = record.type || 'unknown';
 
+      const severity = record.severity !== undefined && record.severity !== null ? record.severity : '—';
+      const status = record.status || 'unknown';
       meta.appendChild(typeBadge);
-      meta.appendChild(document.createTextNode(' · Severity ' + (record.severity != null ? record.severity : '0') + ' · ' + (record.status || 'unknown') + ' · ' + formatDate(record.createdAt)));
+      meta.appendChild(document.createTextNode(' · Severity ' + severity + ' · ' + status + ' · ' + formatDate(record.createdAt)));
 
       main.appendChild(title);
       main.appendChild(meta);

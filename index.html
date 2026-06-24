@@ -5,29 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Signal Cards Canary</title>
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <style>
-      .app-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-      .app-nav {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-      }
-      .app-nav a {
-        text-decoration: none;
-        color: var(--color-on-surface-variant, #45464d);
-        font-weight: 600;
-      }
-      .app-nav a[aria-current="page"] {
-        color: var(--color-primary, #000000);
-        text-decoration: underline;
-      }
-    </style>
   </head>
   <body>
     <main data-setfarm-root="baseline" data-testid="setfarm-app-root" class="app-shell"></main>
@@ -35,52 +12,5 @@
     <script src="assets/js/signal-cards-canary.storage.js" defer></script>
     <script src="assets/js/app.js" defer></script>
     <script src="assets/js/test-bridge.js" defer></script>
-    <script>
-      (function () {
-        'use strict';
-
-        function addNavigation() {
-          const header = document.querySelector('.app-header');
-          if (!header) {
-            if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', addNavigation);
-            } else {
-              window.addEventListener('load', addNavigation, { once: true });
-            }
-            return;
-          }
-          if (header.querySelector('.app-nav')) return;
-
-          const nav = document.createElement('nav');
-          nav.className = 'app-nav';
-          nav.setAttribute('aria-label', 'Section navigation');
-
-          const links = [
-            { href: 'record-operations-signal-cards-canary.html', text: 'Operations', actionId: 'ACT_OPERATIONS' },
-            { href: 'insights-signal-cards-canary.html', text: 'Insights', actionId: 'ACT_INSIGHTS' },
-            { href: 'index.html', text: 'Technical Status', actionId: 'ACT_TECHNICAL_STATUS', current: true }
-          ];
-
-          links.forEach(function (link) {
-            const a = document.createElement('a');
-            a.setAttribute('href', link.href);
-            a.setAttribute('data-action-id', link.actionId);
-            if (link.current) {
-              a.setAttribute('aria-current', 'page');
-            }
-            a.textContent = link.text;
-            nav.appendChild(a);
-          });
-
-          header.appendChild(nav);
-        }
-
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', addNavigation);
-        } else {
-          addNavigation();
-        }
-      })();
-    </script>
   </body>
 </html>
