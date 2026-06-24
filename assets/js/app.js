@@ -25,7 +25,7 @@
     const root = document.querySelector('[data-setfarm-root="baseline"]');
     if (!root) return;
 
-    root.innerHTML = '';
+    clearChildren(root);
 
     const header = document.createElement('header');
     header.className = 'app-header';
@@ -70,8 +70,14 @@
 
     const globalActions = document.createElement('div');
     globalActions.className = 'global-actions';
-    globalActions.innerHTML =
-      '<button type="button" class="btn btn-secondary" data-action-id="reset-all">Reset All</button>';
+
+    const resetAllBtn = document.createElement('button');
+    resetAllBtn.type = 'button';
+    resetAllBtn.className = 'btn btn-secondary';
+    resetAllBtn.setAttribute('data-action-id', 'reset-all');
+    resetAllBtn.textContent = 'Reset All';
+
+    globalActions.appendChild(resetAllBtn);
     root.appendChild(globalActions);
 
     function renderCounter(counter) {
@@ -125,10 +131,16 @@
     }
 
     function render(state) {
-      countersEl.innerHTML = '';
+      clearChildren(countersEl);
       Object.keys(state.counters).forEach(function (id) {
         countersEl.appendChild(renderCounter(state.counters[id]));
       });
+    }
+
+    function clearChildren(el) {
+      while (el.firstChild) {
+        el.removeChild(el.firstChild);
+      }
     }
 
     function formatNumber(n) {
@@ -147,8 +159,9 @@
       if (!button) return;
 
       const actionId = button.getAttribute('data-action-id');
-      const counterEl = button.closest('[data-counter-id]');
-      const counterId = counterEl ? counterEl.getAttribute('data-counter-id') : null;
+      const counterId = button.closest('[data-counter-id]')
+        ? button.closest('[data-counter-id]').getAttribute('data-counter-id')
+        : null;
 
       if (actionId === 'add' && counterId) {
         stateApi.incrementCounter(counterId, 1);
