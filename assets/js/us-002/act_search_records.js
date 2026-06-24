@@ -59,11 +59,17 @@
     if (countEl) countEl.textContent = String(count) + ' of ' + String(total);
   }
 
+  function clearChildren(el) {
+    while (el.firstChild) {
+      el.removeChild(el.firstChild);
+    }
+  }
+
   function renderRecords(records) {
     const list = getRecordListEl();
     const empty = getEmptyStateEl();
     if (!list) return;
-    list.innerHTML = '';
+    clearChildren(list);
 
     if (records.length === 0) {
       if (empty) empty.style.display = 'block';
@@ -78,26 +84,35 @@
       row.className = 'record-row';
       row.setAttribute('data-record-id', record.id);
       row.setAttribute('data-testid', 'record-row');
-      row.innerHTML =
-        '<div class="record-row-main">' +
-        '<h3 class="record-title">' + escapeHtml(record.title) + '</h3>' +
-        '<span class="record-meta">' + escapeHtml(record.type) + ' · Severity ' + record.severity + ' · ' + escapeHtml(record.status) + '</span>' +
-        '</div>' +
-        '<button type="button" class="btn btn-ghost" data-action-id="ACT_SELECT_RECORD" data-record-id="' + escapeHtml(record.id) + '">Edit</button>';
+
+      const main = document.createElement('div');
+      main.className = 'record-row-main';
+
+      const title = document.createElement('h3');
+      title.className = 'record-title';
+      title.textContent = record.title;
+
+      const meta = document.createElement('span');
+      meta.className = 'record-meta';
+      meta.textContent = record.type + ' · Severity ' + record.severity + ' · ' + record.status;
+
+      main.appendChild(title);
+      main.appendChild(meta);
+
+      const editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.className = 'btn btn-ghost';
+      editBtn.setAttribute('data-action-id', 'ACT_SELECT_RECORD');
+      editBtn.setAttribute('data-record-id', record.id);
+      editBtn.textContent = 'Edit';
+
+      row.appendChild(main);
+      row.appendChild(editBtn);
       list.appendChild(row);
     });
 
     const all = loadRecords();
     renderCount(records.length, all.length);
-  }
-
-  function escapeHtml(text) {
-    return String(text)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
   }
 
   function filterRecords() {

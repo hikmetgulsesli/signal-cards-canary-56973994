@@ -21,15 +21,27 @@
       });
   }
 
+  function clearChildren(el) {
+    while (el.firstChild) {
+      el.removeChild(el.firstChild);
+    }
+  }
+
   function initApp() {
     const root = document.querySelector('[data-setfarm-root="baseline"]');
     if (!root) return;
 
-    root.innerHTML = '';
+    clearChildren(root);
 
     const header = document.createElement('header');
     header.className = 'app-header';
-    header.innerHTML = '<h1>Signal Cards Canary</h1><p class="subtitle">Operational note counter</p>';
+    const title = document.createElement('h1');
+    title.textContent = 'Signal Cards Canary';
+    const subtitle = document.createElement('p');
+    subtitle.className = 'subtitle';
+    subtitle.textContent = 'Operational note counter';
+    header.appendChild(title);
+    header.appendChild(subtitle);
     root.appendChild(header);
 
     const countersEl = document.createElement('section');
@@ -39,41 +51,69 @@
 
     const globalActions = document.createElement('div');
     globalActions.className = 'global-actions';
-    globalActions.innerHTML =
-      '<button type="button" class="btn btn-secondary" data-action-id="reset-all">Reset All</button>';
+    const resetAllBtn = document.createElement('button');
+    resetAllBtn.type = 'button';
+    resetAllBtn.className = 'btn btn-secondary';
+    resetAllBtn.setAttribute('data-action-id', 'reset-all');
+    resetAllBtn.textContent = 'Reset All';
+    globalActions.appendChild(resetAllBtn);
     root.appendChild(globalActions);
 
     function renderCounter(counter) {
       const article = document.createElement('article');
-      article.className = 'counter-card counter-card--' + counter.color;
-      article.setAttribute('data-counter-id', counter.id);
+      const VALID_COLORS = { blue: 1, amber: 1, emerald: 1 };
+      const safeColor = VALID_COLORS[counter.color] ? counter.color : 'default';
+      article.className = 'counter-card counter-card--' + safeColor;
+      article.setAttribute('data-counter-id', String(counter.id));
       article.setAttribute('data-testid', 'counter-card');
 
-      article.innerHTML =
-        '<div class="counter-meta">' +
-        '<span class="counter-label">' + escapeHtml(counter.label) + '</span>' +
-        '<span class="counter-accent"></span>' +
-        '</div>' +
-        '<div class="counter-value" data-testid="counter-value">' + formatNumber(counter.value) + '</div>' +
-        '<div class="counter-actions">' +
-        '<button type="button" class="btn btn-primary" data-action-id="add" data-counter-id="' + counter.id + '">Add</button>' +
-        '<button type="button" class="btn btn-ghost" data-action-id="reset" data-counter-id="' + counter.id + '">Reset</button>' +
-        '</div>';
+      const meta = document.createElement('div');
+      meta.className = 'counter-meta';
+      const label = document.createElement('span');
+      label.className = 'counter-label';
+      label.textContent = counter.label;
+      const accent = document.createElement('span');
+      accent.className = 'counter-accent';
+      meta.appendChild(label);
+      meta.appendChild(accent);
+
+      const valueEl = document.createElement('div');
+      valueEl.className = 'counter-value';
+      valueEl.setAttribute('data-testid', 'counter-value');
+      valueEl.textContent = formatNumber(counter.value);
+
+      const actions = document.createElement('div');
+      actions.className = 'counter-actions';
+
+      const addBtn = document.createElement('button');
+      addBtn.type = 'button';
+      addBtn.className = 'btn btn-primary';
+      addBtn.setAttribute('data-action-id', 'add');
+      addBtn.setAttribute('data-counter-id', String(counter.id));
+      addBtn.textContent = 'Add';
+
+      const resetBtn = document.createElement('button');
+      resetBtn.type = 'button';
+      resetBtn.className = 'btn btn-ghost';
+      resetBtn.setAttribute('data-action-id', 'reset');
+      resetBtn.setAttribute('data-counter-id', String(counter.id));
+      resetBtn.textContent = 'Reset';
+
+      actions.appendChild(addBtn);
+      actions.appendChild(resetBtn);
+
+      article.appendChild(meta);
+      article.appendChild(valueEl);
+      article.appendChild(actions);
 
       return article;
     }
 
     function render(state) {
-      countersEl.innerHTML = '';
+      clearChildren(countersEl);
       Object.keys(state.counters).forEach(function (id) {
         countersEl.appendChild(renderCounter(state.counters[id]));
       });
-    }
-
-    function escapeHtml(text) {
-      const div = document.createElement('div');
-      div.textContent = String(text);
-      return div.innerHTML;
     }
 
     function formatNumber(n) {
@@ -92,7 +132,9 @@
       if (!button) return;
 
       const actionId = button.getAttribute('data-action-id');
-      const counterId = button.getAttribute('data-counter-id');
+      const counterId = button.closest('[data-counter-id]')
+        ? button.closest('[data-counter-id]').getAttribute('data-counter-id')
+        : null;
 
       if (actionId === 'add' && counterId) {
         stateApi.incrementCounter(counterId, 1);
@@ -105,12 +147,6 @@
   }
 
   function bootstrap() {
-    if (!window.SignalCardsCanaryState || !window.SignalCardsCanaryStorage) {
-      // Wait for modules if they are loaded later (should not happen with defer).
-      setTimeout(bootstrap, 50);
-      return;
-    }
-
     const stored = storageApi.load();
     if (stored) {
       stateApi.setState(stored);

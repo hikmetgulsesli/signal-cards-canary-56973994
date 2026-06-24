@@ -86,20 +86,6 @@
     if (countEl) countEl.textContent = String(count) + ' of ' + String(total);
   }
 
-  function escapeHtml(text) {
-    return String(text)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
-
-  function renderTypeBadge(type) {
-    const safeType = escapeHtml(type || 'unknown');
-    return '<span class="insight-type-badge">' + safeType + '</span>';
-  }
-
   function formatDate(isoString) {
     if (!isoString) return '—';
     const date = new Date(isoString);
@@ -107,11 +93,17 @@
     return date.toLocaleDateString();
   }
 
+  function clearChildren(el) {
+    while (el.firstChild) {
+      el.removeChild(el.firstChild);
+    }
+  }
+
   function renderRecords(records) {
     const list = getRecordListEl();
     const empty = getEmptyStateEl();
     if (!list) return;
-    list.innerHTML = '';
+    clearChildren(list);
 
     const sorted = records.slice().sort(function (a, b) {
       const aVal = a.createdAt ? new Date(a.createdAt).getTime() : 0;
@@ -134,16 +126,28 @@
       row.className = 'record-row';
       row.setAttribute('data-record-id', record.id);
       row.setAttribute('data-testid', 'insights-record-row');
-      row.innerHTML =
-        '<div class="record-row-main">' +
-        '<h3 class="record-title">' + escapeHtml(record.title) + '</h3>' +
-        '<span class="record-meta">' +
-        renderTypeBadge(record.type) +
-        ' · Severity ' + record.severity +
-        ' · ' + escapeHtml(record.status) +
-        ' · ' + formatDate(record.createdAt) +
-        '</span>' +
-        '</div>';
+
+      const main = document.createElement('div');
+      main.className = 'record-row-main';
+
+      const title = document.createElement('h3');
+      title.className = 'record-title';
+      title.textContent = record.title;
+
+      const meta = document.createElement('span');
+      meta.className = 'record-meta';
+
+      const typeBadge = document.createElement('span');
+      typeBadge.className = 'insight-type-badge';
+      typeBadge.textContent = record.type || 'unknown';
+
+      meta.appendChild(typeBadge);
+      meta.appendChild(document.createTextNode(' · Severity ' + record.severity + ' · ' + record.status + ' · ' + formatDate(record.createdAt)));
+
+      main.appendChild(title);
+      main.appendChild(meta);
+
+      row.appendChild(main);
       list.appendChild(row);
     });
 
