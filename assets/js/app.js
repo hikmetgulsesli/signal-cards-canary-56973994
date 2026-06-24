@@ -29,7 +29,38 @@
 
     const header = document.createElement('header');
     header.className = 'app-header';
-    header.innerHTML = '<h1>Signal Cards Canary</h1><p class="subtitle">Operational note counter</p>';
+
+    const title = document.createElement('h1');
+    title.textContent = 'Signal Cards Canary';
+
+    const subtitle = document.createElement('p');
+    subtitle.className = 'subtitle';
+    subtitle.textContent = 'Operational note counter';
+
+    const nav = document.createElement('nav');
+    nav.className = 'app-nav';
+    nav.setAttribute('aria-label', 'Section navigation');
+
+    const navLinks = [
+      { href: 'record-operations-signal-cards-canary.html', label: 'Operations', actionId: 'ACT_OPERATIONS' },
+      { href: 'insights-signal-cards-canary.html', label: 'Insights', actionId: 'ACT_INSIGHTS' },
+      { href: 'index.html', label: 'Technical Status', actionId: 'ACT_TECHNICAL_STATUS', current: true }
+    ];
+
+    navLinks.forEach(function (link) {
+      const a = document.createElement('a');
+      a.href = link.href;
+      a.textContent = link.label;
+      a.setAttribute('data-action-id', link.actionId);
+      if (link.current) {
+        a.setAttribute('aria-current', 'page');
+      }
+      nav.appendChild(a);
+    });
+
+    header.appendChild(title);
+    header.appendChild(subtitle);
+    header.appendChild(nav);
     root.appendChild(header);
 
     const countersEl = document.createElement('section');
@@ -116,8 +147,8 @@
       if (!button) return;
 
       const actionId = button.getAttribute('data-action-id');
-      const counterCard = button.closest('[data-counter-id]');
-      const counterId = counterCard ? counterCard.getAttribute('data-counter-id') : null;
+      const counterEl = button.closest('[data-counter-id]');
+      const counterId = counterEl ? counterEl.getAttribute('data-counter-id') : null;
 
       if (actionId === 'add' && counterId) {
         stateApi.incrementCounter(counterId, 1);

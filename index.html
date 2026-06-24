@@ -5,6 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Signal Cards Canary</title>
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .app-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+      .app-nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        align-items: center;
+      }
+      .app-nav a {
+        text-decoration: none;
+        color: var(--color-on-surface-variant, #45464d);
+        font-weight: 600;
+      }
+      .app-nav a[aria-current="page"] {
+        color: var(--color-primary, #000000);
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body>
     <main data-setfarm-root="baseline" data-testid="setfarm-app-root" class="app-shell"></main>
